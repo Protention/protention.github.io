@@ -5,8 +5,8 @@
   "type": "module",
   "engines": { "node": ">=22" },
   "scripts": {
-    "build": "node scripts/build-placeholder.mjs",
-    "verify": "node scripts/verify-placeholder.mjs",
+    "build": "node scripts/build.mjs",
+    "verify": "node scripts/verify.mjs",
     "dev": "node scripts/serve.mjs"
   }
 }

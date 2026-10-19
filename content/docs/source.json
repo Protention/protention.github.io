@@ -1,0 +1,32 @@
+{
+  "copiedFrom": "https://ocuna-ai.com/docs",
+  "version": "0.5.0",
+  "packageRepository": "https://github.com/Protention/ocura-oss",
+  "packageSourceRef": "9b1e07276e83868ffb2dce4570e0dce0e84be8c5",
+  "files": [
+    {
+      "file": "ocura-oss.md",
+      "sha256": "62f5449fbcb53202b1fa33336ccdefbbf7f614395527a61a026b9d7b535b7fff"
+    },
+    {
+      "file": "cli.md",
+      "sha256": "68ed4b6e31202c37f88fc700167b146218b9ff7407fd19c617b99a29e0a270af"
+    },
+    {
+      "file": "api.md",
+      "sha256": "6e792e49af23f0bad92dcd0f8d777033d8770164956d36393f54f172d5a3e926"
+    },
+    {
+      "file": "automation.md",
+      "sha256": "e524ab6122087ff716cda3156bdf1a5cac172b5ced2e050cbfcf5cb1468241d1"
+    },
+    {
+      "file": "examples.md",
+      "sha256": "6ee06b3128135c08aded1f3797b443cac786522abb28b16915fd57793699ad8b"
+    },
+    {
+      "file": "state.md",
+      "sha256": "5a1eab79ba03585af8e4e8d67f2901bf79efac5989633bebc73a90dd495bd6c5"
+    }
+  ]
+}
