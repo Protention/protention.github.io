@@ -15,6 +15,7 @@ const documents = new Map();
 for (const page of pages) {
   const source = await readFile(path.join(root, 'content/docs', page.file));
   const markdown = source.toString('utf8');
+  assert(!/\]\((?:https:\/\/github\.com\/BlakeMasters\/ocura-oss|https:\/\/ocuna-ai\.com\/docs|\/docs(?:[\/#)]|$))/.test(markdown), `Download contains an old link destination: ${page.file}`);
   const html = await read(page.route.slice(1) + 'index.html');
   assert.equal(createHash('sha256').update(source).digest('hex'), provenance.files.find((file) => file.file === page.file).sha256, `Source parity: ${page.file}`);
   assert(source.equals(await readFile(path.join(out, 'docs', page.file))), `Markdown bytes: ${page.file}`);

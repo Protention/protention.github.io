@@ -24,9 +24,9 @@ function rewriteLinks(html) {
       return `href="${href.replace('https://github.com/BlakeMasters/ocura-oss', site.repository)}"`;
     }
     const target = new URL(href, 'https://ocuna-ai.com');
-    if (target.origin !== 'https://ocuna-ai.com') return attribute;
+    if (target.origin !== 'https://ocuna-ai.com' && target.origin !== site.origin) return attribute;
     const previousPath = target.pathname.replace(/\/(?:index\.html)?$/, '').replace(/\.html$/, '');
-    const page = pages.find((item) => item.previousRoute === previousPath);
+    const page = pages.find((item) => item.previousRoute === previousPath || item.route.replace(/\/$/, '') === previousPath);
     return page ? `href="${page.route}${target.search}${target.hash}"` : attribute;
   });
 }
