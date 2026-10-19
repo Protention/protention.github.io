@@ -31,7 +31,7 @@ for (const page of pages) {
   assert(html.includes('aria-label="On this page"') && html.includes('class="sidebar-scroll"'), `Persistent navigation: ${route}`);
   assert(html.includes(`${site.projectRepository}/blob/${site.sourceRef}/${page.source}`), `Pinned source: ${route}`);
   assert(!html.includes('ocuna-ai.com') && !html.includes('github.com/BlakeMasters/ocura-oss'), `Old hosting link: ${route}`);
-  assert(html.includes('Version 0.5.0.'), `Release label: ${route}`);
+  assert(html.includes(`Version ${site.version}.`), `Release label: ${route}`);
   const parser = new MarkdownIt();
   const tokens = parser.parse(original.toString('utf8'), {});
   for (const token of tokens.filter((token) => ['fence', 'code_block'].includes(token.type))) {

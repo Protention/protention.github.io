@@ -18,7 +18,7 @@ const brand = `<a class="brand" href="/" aria-label="Protention home"><svg viewB
 function header(isDocs = false) {
   return `<header class="site-header"><div class="header-inner">${brand}<nav aria-label="Main navigation"><a href="/#projects">Projects</a><a href="/docs/"${isDocs ? ' aria-current="page"' : ''}>Docs</a><a href="https://github.com/Protention">GitHub <span aria-hidden="true">↗</span></a><button class="theme-toggle" type="button" aria-label="Switch color theme" hidden>◐</button></nav></div></header>`;
 }
-const footer = `<footer class="site-footer"><span>Protention</span><span>Built in the open. <a href="${site.repository}">Site source ↗</a></span></footer>`;
+const footer = `<footer class="site-footer"><span>Protention</span><span>Built in the open. <a href="${site.repository}">Site source ↗</a><a href="/LICENSE">MPL-2.0</a></span></footer>`;
 function document({ title, description, route, body, className = '', noindex = false }) {
   const canonical = site.url.replace(/\/$/, '') + route;
   return `<!doctype html>
