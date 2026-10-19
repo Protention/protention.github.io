@@ -1,0 +1,37 @@
+{
+  "repository": "https://github.com/Protention/ocura-oss",
+  "tag": "v0.5.0",
+  "commit": "9b1e07276e83868ffb2dce4570e0dce0e84be8c5",
+  "files": [
+    {
+      "source": "docs/index.md",
+      "file": "overview.md",
+      "sha256": "0226bf2204c5723465ce02ebe5a3b54052249186cbd5ba1697385512c4fcc3d0"
+    },
+    {
+      "source": "docs/cli.md",
+      "file": "cli.md",
+      "sha256": "078fe06ffe304d12896dfdfcea7b91d4b0a4843d2ccee02afa079fb078af960b"
+    },
+    {
+      "source": "docs/python-api.md",
+      "file": "api.md",
+      "sha256": "306c9111f5f5c428be92e82bb9f8bd4341b6f89b03a023a51c6401cdcf38ebfb"
+    },
+    {
+      "source": "docs/automation.md",
+      "file": "automation.md",
+      "sha256": "5dec4a3fd1c0bea3c2468d8775bca71f7edbe2e4b3c3200ba333d24b5e7d12c8"
+    },
+    {
+      "source": "examples/autoregressive/README.md",
+      "file": "examples.md",
+      "sha256": "d51aea076df7a6f96c802f61a8f653c2cd601db817cc3475e5a1f43531611022"
+    },
+    {
+      "source": "docs/state-and-verification.md",
+      "file": "state.md",
+      "sha256": "17df87338cd8438730f565e727a915b2e3c1a20fe68d7ae771862a1a39b19b76"
+    }
+  ]
+}
