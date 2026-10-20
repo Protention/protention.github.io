@@ -6,7 +6,7 @@
   "files": [
     {
       "file": "ocura-oss.md",
-      "sha256": "3b6cacc367d24f60ad568a73d9d2e48b1456a561b1d4920974f38c957940c2aa",
+      "sha256": "266af8309acb6ce4004e80ef39d5264157c9f3921fba3f035417cb38774ee5b1",
       "originalSha256": "62f5449fbcb53202b1fa33336ccdefbbf7f614395527a61a026b9d7b535b7fff"
     },
     {
@@ -16,7 +16,7 @@
     },
     {
       "file": "api.md",
-      "sha256": "ef547e7a094243521d4dc79c34b6f56025b17b95b9380801124b9951268416ae",
+      "sha256": "6b35c9a8d2d876eca9449417a7aceb04c4e0f4d061836fac8a02aa8770010f6d",
       "originalSha256": "6e792e49af23f0bad92dcd0f8d777033d8770164956d36393f54f172d5a3e926"
     },
     {
@@ -31,7 +31,7 @@
     },
     {
       "file": "state.md",
-      "sha256": "ee4f5333141fa3515e72b64f448104657882df31bc5cc33a714c5e71e67bf1ae",
+      "sha256": "8aa3426fb2a6962945eb484722106e448f1592d338b60bd94e7a4dd8bef2ddcf",
       "originalSha256": "5a1eab79ba03585af8e4e8d67f2901bf79efac5989633bebc73a90dd495bd6c5"
     }
   ]
