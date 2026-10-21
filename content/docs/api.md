@@ -1,6 +1,6 @@
 # Python API reference
 
-Version 0.5.0.
+Version 0.6.0.
 
 The `ocura_oss` package exposes typed workflow functions, read-oriented state access, frozen result and record types, enums, and public exceptions.
 
@@ -20,9 +20,7 @@ A crafted pathway lineage that exceeds Python's recursion limit can propagate `R
 
 Declared parameter mappings require nonempty string values. Keys must begin with a letter or underscore and may then contain letters, digits, underscores, periods, or hyphens. Values are stored without type conversion.
 
-In 0.5.0, `run(parameters=...)` requires a `dict` or `None`; convert other mapping containers with `dict(parameters)`. `branch(parameters=...)` converts its mapping to a dictionary before validation. The published annotations use `Mapping[str, str]` for both functions.
-
-Invalid parameter declarations in `run()` and `branch()` can raise `ocura_oss.model.ValidationError`. This exception is defined in `ocura_oss.model` and is not a subclass of `StoreError`, so catching only `StoreError` does not catch these parameter errors.
+Identifier parameters take full identifiers. The shortened identifiers that the CLI accepts are expanded by [`Store.resolve_id`](https://protention.dev/api/#store-store-resolve-id).
 
 Use these operations from a script or an AI agent inside its existing execution environment. The [automation guide](https://protention.dev/automation/) describes caller responsibilities; the [training example](https://protention.dev/examples/) supplies PyTorch/JAX workloads with an optional local Ray executor.
 
@@ -55,7 +53,6 @@ run(
     [sys.executable, "-c", "print('child')"],
     root=root,
     pathway_id=child.id,
-    parameters={"batch": "4"},
 )
 
 comparison = compare(baseline.chokepoint.id, root=root)
@@ -135,11 +132,11 @@ Run one trusted local command and record terminal evidence.
 | `command` | sequence of strings | required | Executable followed by its argument tokens; a plain string or bytes object is rejected |
 | `root` | path-like, string, or None | `None` | Project root containing initialized state |
 | `pathway_id` | string or None | `None` | Pathway that receives the atom; `None` selects the den's default pathway |
-| `parameters` | dict of string to string, or None | `None` | Declared parameters stored on the atom; convert other mappings with `dict(parameters)`. Values configure the command only when used with `substitute=True` |
+| `parameters` | mapping of string to string, or None | `None` | Labels stored on the atom together with the pathway's effective parameters, replacing the pathway's value for the same key; they are not passed to the child process |
 | `mirror` | boolean | `False` | Stream stdout and stderr to the current terminal while retaining the same bytes in logs |
 | `capture` | boolean | `True` | Retain stdout and stderr as logs; `False` writes no output to disk and records that it was not captured |
 | `masked_arguments` | iterable of integers | `()` | Zero-based positions in `command` whose tokens are stored as `<masked>`; the command still receives the real values |
-| `substitute` | boolean | `False` | Replace `{KEY}` in command tokens with that parameter's value, and record each parameter used |
+| `substitute` | boolean | `False` | Replace `{KEY}` in command tokens with the value the run records for that key |
 | `context` | boolean | `False` | Record the platform and the git revision and dirty state at launch |
 | `context_files` | iterable of paths | `()` | Files whose size and SHA-256 are recorded at launch; relative paths are resolved against the project root |
 
@@ -151,8 +148,7 @@ Run one trusted local command and record terminal evidence.
 
 | Exception | Condition |
 | --- | --- |
-| `StoreError` | Command tokens, masked positions, placeholders, state, pathway, or evidence persistence is invalid, or a context file cannot be read |
-| `ocura_oss.model.ValidationError` | `parameters` is neither a dictionary nor `None`, or a declared parameter key or value is invalid |
+| `StoreError` | Command tokens, masked positions, placeholders, parameter data, state, pathway, or evidence persistence is invalid, or a context file cannot be read |
 
 Child command failures and launch failures are returned as atom outcomes rather than raised as exceptions.
 
@@ -167,7 +163,7 @@ Child command failures and launch failures are returned as atom outcomes rather 
 
 Launch categories include `executable_not_found`, `permission_denied`, `not_a_directory`, `invalid_argument`, and `os_error`.
 
-`run()` never returns `Outcome.ABANDONED`. That outcome is written by [`recover()`](#workflow-functions-ocura-oss-recover) for an attempt whose recording process stopped first.
+`run()` never returns `Outcome.ABANDONED`. That outcome is written by [`recover()`](https://protention.dev/api/#workflow-functions-ocura-oss-recover) for an attempt whose recording process stopped first.
 
 #### Notes
 
@@ -177,11 +173,11 @@ Stdout and stderr are stored separately under `.ocura-oss/logs/`. With `capture=
 
 Each position in `masked_arguments` must index `command`; position 0 is the executable. The attempt and atom records store `<masked>` at those positions and list them. Masking does not alter output, so a command that prints a masked value still writes it to a captured log.
 
-With `substitute=True`, a value comes from `parameters` first and then from the pathway's effective parameters. The returned atom's `command` is the substituted command, and its `declared_parameters` are `parameters` plus every parameter a placeholder used. `{{` and `}}` are literal braces; a placeholder without a value, or an unbalanced brace, raises `StoreError` before anything runs. Braces are untouched when `substitute` is false.
+The returned atom's `declared_parameters` are the pathway's effective parameters with `parameters` laid over them, so a run on a branch carries the branch's labels without repeating them. With `substitute=True`, placeholders take their values from those labels, and the atom's `command` is the substituted command. `{{` and `}}` are literal braces; a placeholder without a value, or an unbalanced brace, raises `StoreError` before anything runs. Braces are untouched when `substitute` is false.
 
 `context` and `context_files` fill the returned atom's `context` with a `RunContext`; it is `None` when neither is used. Nothing is queried, executed, or read for context otherwise. See [optional launch context](https://protention.dev/state/#stored-information-optional-launch-context) for what is recorded and what it does not establish.
 
-The attempt is journaled under `.ocura-oss/attempts/` before the command launches. One atom and one branchable terminal chokepoint are written after the command ends, and the journal entry is then removed. A second Ctrl+C, or a killed process, leaves the entry in place; `recover()` closes it. Several processes may call `run()` against one root at the same time.
+The attempt is journaled under `.ocura-oss/attempts/` before the command launches. One atom and one branchable terminal chokepoint are written after the command ends, and the journal entry is then removed. A second Ctrl+C, or a killed process, leaves the entry in place; `recover()` closes it. `run()` installs no signal handlers, and what happens to the command when the calling process is killed depends on the operating system; see [when the recorder stops](https://protention.dev/state/#attempts-and-recovery-when-the-recorder-stops). Several processes may call `run()` against one root at the same time.
 
 The host machine, network, and process tree form the execution context. The trust model is trusted, same-owner local work.
 
@@ -233,8 +229,7 @@ The created child `Pathway`. It has no atom until a later `run()` explicitly nam
 
 | Exception | Condition |
 | --- | --- |
-| `StoreError` | State or the branch reason is invalid; the source is missing, nonterminal, nonbranchable, or unverifiable; or the child cannot be written |
-| `ocura_oss.model.ValidationError` | A declared parameter key or value is invalid after the mapping is converted to a dictionary |
+| `StoreError` | State or input is invalid; the source is missing, nonterminal, nonbranchable, or unverifiable; or the child cannot be written |
 
 #### Notes
 
@@ -286,9 +281,7 @@ Compare a verified source run with the newest run on each child pathway created 
 
 #### Notes
 
-Explicit selection verifies the pinned source and relevant child evidence. To discover children, it also reads and validates every pathway record, and every atom record when the selected source has children. An unrelated malformed or checksum-invalid pathway or atom record can therefore block an explicit comparison. Verification of logs and relationships remains scoped to the selected evidence.
-
-Automatic selection requires complete state verification and selects the newest chokepoint referenced by a child pathway. A state with no child pathways selects its newest terminal chokepoint and reports `NO_BRANCH`. Any verification problem causes automatic selection to fail.
+Explicit selection verifies the pinned source and relevant child evidence. Automatic selection requires complete state verification and selects the newest chokepoint referenced by a child pathway. A state with no child pathways selects its newest terminal chokepoint and reports `NO_BRANCH`. Any verification problem causes automatic selection to fail.
 
 Comparison is a read-only operation over recorded state. For a child with more than one atom, it selects the newest atom by start time and identifier.
 
@@ -404,7 +397,7 @@ What recovery writes depends on how far the recorder got:
 
 An abandoned atom has `None` for `finished_at`, `duration_seconds`, `return_code`, and `launch_error_category`. Output captured before the recorder stopped is retained and measured, so it verifies afterward.
 
-Attempts that a live process is still recording are left alone, so recovery is safe while other runs are in flight. Call it only after the abandoned command itself has stopped: Ocura OSS does not stop a command whose recorder died, and one that is still running can keep writing to logs that recovery has measured.
+Attempts that a live process is still recording are left alone, so recovery is safe while other runs are in flight. Call it only after the abandoned command itself has stopped: a command that outlived its recorder can keep writing to logs that recovery has measured.
 
 #### Example
 
@@ -534,6 +527,38 @@ Require an initialized den under the project root.
 | `StoreError` | `den.json` is not a file |
 
 This method checks `den.json` presence only. `load_den()` parses the den, and `verify_state()` performs complete verification.
+
+When the root has no `.ocura-oss/` directory, the message names `ocura-oss init`. When a directory above the root holds state, the message names the nearest one instead.
+
+### `Store.resolve_id`
+
+```python
+store.resolve_id(
+    value: str,
+    kind: Literal["pathway", "atom", "chokepoint"],
+) -> str
+```
+
+Return the full identifier that a full or shortened identifier names.
+
+#### Parameters
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `value` | string | A full identifier, or at least four of its leading hexadecimal characters with or without the kind word |
+| `kind` | string | Record kind to search: `pathway`, `atom`, or `chokepoint` |
+
+#### Returns
+
+The full identifier. A full identifier is returned as given, without checking that its record exists.
+
+#### Raises
+
+| Exception | Condition |
+| --- | --- |
+| `StoreError` | `value` is neither a full identifier nor a valid prefix, or the prefix matches no stored record or more than one |
+
+A prefix is matched against record file names only; no record is read. The error for an ambiguous prefix lists up to five matching identifiers. The CLI calls this method for `branch --from`, `compare --from`, and `run --pathway`.
 
 ### `Store.load_den`
 
@@ -874,7 +899,7 @@ Verify every state record and every log referenced by a valid atom.
 
 #### Returns
 
-`StateVerification`. Problems outside the den are collected by record name when possible. `logs_checked` counts individual log files that passed verification. `running_attempts` and `abandoned_attempts` name unfinished attempts. `manifest` and `digest` are filled when the state is intact. `against` behaves as described for top-level [`verify()`](#workflow-functions-ocura-oss-verify).
+`StateVerification`. Problems outside the den are collected by record name when possible. `logs_checked` counts individual log files that passed verification. `running_attempts` and `abandoned_attempts` name unfinished attempts. `manifest` and `digest` are filled when the state is intact. `against` behaves as described for top-level [`verify()`](https://protention.dev/api/#workflow-functions-ocura-oss-verify).
 
 #### Raises
 
@@ -907,28 +932,16 @@ A list of `(attempt, state)` pairs. The state is `AttemptState.RUNNING` while a 
 ### `Store.recover`
 
 ```python
-store.recover(
-    *,
-    now: Callable[[], datetime.datetime] | None = None,
-) -> tuple[RecoveredAttempt, ...]
+store.recover() -> tuple[RecoveredAttempt, ...]
 ```
 
-Close every unfinished attempt whose recording process has stopped. Top-level [`recover()`](#workflow-functions-ocura-oss-recover) calls this method and documents the actions, results, and limits.
-
-#### Parameters
-
-| Name | Type | Default | Description |
-| --- | --- | --- | --- |
-| `now` | callable returning a timezone-aware `datetime.datetime`, or None | `None` | Clock for a newly created chokepoint when the atom has no recorded finish time; `None` uses the current UTC clock |
-
-The clock supplies the chokepoint's creation timestamp. It does not add a finish time, duration, or return code to an abandoned atom.
+Close every unfinished attempt whose recording process has stopped. Top-level [`recover()`](https://protention.dev/api/#workflow-functions-ocura-oss-recover) calls this method and documents the actions, results, and limits.
 
 #### Raises
 
 | Exception | Condition |
 | --- | --- |
 | `StoreError` | Initialized state is absent, or an attempt record or its evidence is malformed or unreadable |
-| `ocura_oss.model.ValidationError` | The `now` callback returns a value that is not a timezone-aware `datetime.datetime` |
 
 ## Record types
 
@@ -1030,7 +1043,7 @@ One recorded command attempt and its referenced output logs.
 | `outcome` | `Outcome` | Terminal command outcome |
 | `return_code` | integer or None | Process return code for passed and failed outcomes |
 | `launch_error_category` | string or None | Normalized launch category, or `interrupted` |
-| `declared_parameters` | mapping of string to string | Labels supplied to this run |
+| `declared_parameters` | mapping of string to string | Labels recorded for this run: its pathway's effective parameters with the run's own declarations laid over them |
 | `command` | tuple of strings | Executable and argument tokens retained in the raw record, with `<masked>` at each masked position |
 | `stdout_log` | string or None | Project-relative stdout log path |
 | `stderr_log` | string or None | Project-relative stderr log path |
@@ -1074,7 +1087,7 @@ One run that has started and is not yet finalized, as returned by `Store.list_at
 | `pathway_id` | string | Pathway the run was started on |
 | `chokepoint_id` | string | Identifier reserved for the atom's terminal chokepoint |
 | `started_at` | string | UTC ISO 8601 start timestamp |
-| `declared_parameters` | mapping of string to string | Labels supplied to this run |
+| `declared_parameters` | mapping of string to string | Labels recorded for this run: its pathway's effective parameters with the run's own declarations laid over them |
 | `command` | tuple of strings | Executable and argument tokens, with `<masked>` at each masked position |
 | `stdout_log` | string or None | Project-relative stdout log path; `None` without capture |
 | `stderr_log` | string or None | Project-relative stderr log path; `None` without capture |
@@ -1165,7 +1178,7 @@ Terminal evidence boundary that can serve as a branch source.
 | `pathway_id` | string | Pathway shared with the source atom |
 | `atom_id` | string | Source atom identifier |
 | `created_at` | string | UTC ISO 8601 creation timestamp |
-| `kind` | string | `terminal` in schema version 2 |
+| `kind` | string | `terminal` in schema version 1 |
 | `outcome` | `Outcome` | Outcome that must agree with the source atom |
 | `branchable` | boolean | Whether branching may use this boundary |
 
@@ -1472,8 +1485,6 @@ StoreError(message)
 
 Raised for invalid workflow input and missing, malformed, checksum-mismatched, semantically inconsistent, unverifiable, or unwritable state.
 
-In 0.5.0, parameter validation in `run()` and `branch()` can raise `ocura_oss.model.ValidationError`, which is not a `StoreError`.
-
 `run()` returns normal command failures and launch failures as `Outcome` values. It raises `StoreError` when the workflow or evidence persistence fails.
 
 ### `ocura_oss.DemoError`
@@ -1511,7 +1522,7 @@ The destination is retained when it was created before the failure.
 ocura_oss.__version__: str
 ```
 
-Installed package version. Version 0.5.0 reports `"0.5.0"`.
+Installed package version. Version 0.6.0 reports `"0.6.0"`.
 
 ## Typing
 
@@ -1526,7 +1537,7 @@ initial: Initialization = initialize(Path("experiment"))
 store: Store = Store(initial.root)
 ```
 
-Dataclass fields use concrete record and result types. Command arguments are annotated with `collections.abc.Sequence`, and declared parameters with `Mapping`. In 0.5.0, `run(parameters=...)` requires a dictionary at runtime; convert other mappings with `dict(parameters)`. `branch(parameters=...)` accepts a mapping and converts it to a dictionary before validating its keys and values.
+Dataclass fields use concrete record and result types. Parameter inputs use `collections.abc.Sequence` and `Mapping` so callers can supply compatible typed containers.
 
 ## State and concurrency
 

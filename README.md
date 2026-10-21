@@ -6,14 +6,13 @@ The Ocura OSS documentation opens directly at **https://protention.dev/**.
 Reference pages use clean paths such as `/cli/` and `/api/`; navigation does not
 require `/index.html`. Older `/docs/` paths remain available as aliases.
 
-The six Markdown documents in `content/docs/` come from the published 0.5.0
-documentation, with link destinations updated for Protention and an obsolete
-legacy-directory notice removed. Code examples are unchanged. `source.json` records
-the original public URL and both the original and current checksums. The existing
-renderer and layout are retained,
-with black backgrounds, white text, and light-blue accents. Rendered links use
-the new paths and the Protention repository. Markdown downloads use absolute URLs
-so their links work outside the site. Source links stay pinned to 0.5.0.
+The six Markdown documents in `content/docs/` come from the package revision
+recorded in `site.config.mjs` and `content/docs/source.json`. Text and code examples
+match that revision; link destinations are adapted for Protention. The manifest
+records both source and exported Markdown checksums. The existing renderer and
+layout use black backgrounds, white text, and light-blue accents. Markdown
+downloads use absolute URLs so their links work outside the site. Source links
+stay pinned to the same package revision as the displayed documentation.
 
 Every page contains the complete documentation as static HTML. The optional
 browser script saves text size and normalizes aliases to clean URLs. There is no

@@ -1,6 +1,6 @@
 # State and verification
 
-Version 0.5.0.
+Version 0.6.0.
 
 Ocura OSS stores records and command output under `.ocura-oss/` in one project directory. It does not use a service or a global project index.
 
@@ -41,11 +41,11 @@ Each JSON record contains an envelope:
 }
 ```
 
-The checksum covers the schema version, kind, and canonical payload. It provides local change detection. It is not an authenticated signature and does not establish authorship: anyone who can write the directory can replace a record and its checksum together. A [retained manifest](#verification-retained-manifests) detects that.
+The checksum covers the schema version, kind, and canonical payload. It provides local change detection. It is not an authenticated signature and does not establish authorship: anyone who can write the directory can replace a record and its checksum together. A [retained manifest](https://protention.dev/state/#verification-retained-manifests) detects that.
 
 ## Format compatibility
 
-Records carry schema version 2. This release reads schema 2 only. State written by Ocura OSS 0.4 and earlier carries schema 1 and is rejected; see [upgrading from 0.4](#format-compatibility-upgrading-from-0-4).
+Records carry schema version 2. This release reads schema 2 only. State written by Ocura OSS 0.4 and earlier carries schema 1 and is rejected; see [upgrading from 0.4](https://protention.dev/state/#format-compatibility-upgrading-from-0-4).
 
 Within one schema version, a record changes only by gaining optional fields:
 
@@ -59,7 +59,7 @@ This describes how the format changes. It is not a commitment that schema 2 is f
 
 ### Upgrading from 0.4
 
-Version 0.5 cannot read a `.ocura-oss/` directory written by 0.4 or earlier, and it does not convert one. Every command pointed at such a directory, including `verify`, stops with exit status 2 and a message naming the cause:
+Versions 0.5 and later cannot read a `.ocura-oss/` directory written by 0.4 or earlier, and they do not convert one. Every command pointed at such a directory, including `verify`, stops with exit status 2 and a message naming the cause:
 
 ```text
 error: unsupported schema version 1 in den record den.json; Ocura OSS 0.4 and earlier wrote this state, and this version cannot read or convert it. Keep using "ocura-oss<0.5" for it, or move .ocura-oss aside and run `ocura-oss init`
@@ -70,10 +70,18 @@ The old directory is never modified. Decide per project before upgrading:
 | You want to | Do this |
 | --- | --- |
 | Keep working with the existing records | Stay on 0.4 for that project: `python -m pip install "ocura-oss<0.5"` in its environment. 0.4 reads and extends the directory as before |
-| Start recording with 0.5 in the same project | Move the old directory aside, then run `ocura-oss init`. For example `mv .ocura-oss .ocura-oss-0.4`, or in PowerShell `Rename-Item .ocura-oss .ocura-oss-0.4` |
+| Carry complete 0.4 records into schema 2 | Use the optional [repository-only migration script](https://github.com/Protention/ocura-oss/blob/8aeda23e41fe960a5f572267fd28695fa2f79172/tools/migrations/README.md). It verifies the input and creates a separate copy with a migration receipt, retaining IDs, history, and log bytes. It is excluded from both pip distributions |
+| Start recording with a current version in the same project | Move the old directory aside, then run `ocura-oss init`. For example `mv .ocura-oss .ocura-oss-0.4`, or in PowerShell `Rename-Item .ocura-oss .ocura-oss-0.4` |
 | Look at old records after upgrading | The logs under the moved directory's `logs/` are plain files, and the records are plain JSON. To use 0.4's commands on them again, move the directory back to `.ocura-oss` in an environment that has 0.4 |
 
 A new state directory starts empty. Identifiers from the old one are unknown to it, so a branch cannot name an old chokepoint as its source: record the baseline again under 0.5 before branching from it.
+
+A migrated copy instead retains the old identifiers and branch relationships, so
+it can use those records as branch sources. The optional script never activates
+the converted ledger in the original project, deletes old state, copies workload
+files, or executes recorded commands. Follow its guide to inspect and activate
+the result after verification. Incomplete or inconsistent 0.4 state needs
+separate inspection; migration does not reconstruct missing evidence.
 
 If you need comparisons or listings from the old records later, save them with 0.4 first, for example `ocura-oss compare --json --from ID` and `ocura-oss chokepoints --json`.
 
@@ -116,9 +124,27 @@ An `abandoned` atom states what is known and nothing else. It keeps the start ti
 
 Running attempts are never touched by recovery. Recovery needs each abandoned attempt's lock to itself, and waits about a quarter of a second for a reader that is checking the same attempt. If a reader holds on longer than that, recovery leaves that attempt for the next call; verification keeps reporting it as abandoned in the meantime.
 
+### When the recorder stops
+
+`ocura-oss run` treats a request to stop it as it treats the first Ctrl+C: it stops the command, records the run as `interrupted`, and exits with status 1. The requests are `SIGTERM` and `SIGHUP` on Linux and macOS, and Ctrl+Break on Windows. A signal the caller already ignores stays ignored, so a run started under `nohup` survives its terminal. On Windows, stopping the command also ends the processes it started; on Linux and macOS only the command itself is signaled.
+
+The Python `run()` function installs no signal handlers. It records an interruption when `KeyboardInterrupt` is raised in the calling thread, so a program that wants the same behavior can set `signal.default_int_handler` for those signals.
+
+A recorder that is killed outright records nothing, and its attempt becomes `abandoned`. What happens to the command depends on the operating system:
+
+| System | The command when its recorder is killed |
+| --- | --- |
+| Windows | The operating system ends it, together with the processes it started |
+| Linux | The kernel kills it; processes it started keep running |
+| macOS | It keeps running |
+
+On Linux this applies when the recording process has a single thread as it launches the command, which is always true of `ocura-oss run`. A command that finishes on its own is not affected on any system: processes it left running stay running.
+
+These operating-system mechanisms are best effort: a command still runs when one is unavailable. On Linux the kernel request is also skipped in hosts that cannot use a pre-exec hook, such as Python subinterpreters.
+
 Limits:
 
-- Ocura OSS does not stop a command when its recorder stops. A command that outlives its recorder keeps running and can keep writing to its logs. Recover only after that command has stopped; otherwise later verification reports its log as changed.
+- Where a command or a process it started outlives a killed recorder, it can keep writing to its logs. Recover only after it has stopped; otherwise later verification reports its log as changed.
 - The locks are advisory operating-system file locks. They are reliable on local filesystems. On a network filesystem, a running attempt may be reported as abandoned or the reverse.
 
 ## Concurrent use
@@ -152,8 +178,6 @@ Ocura OSS does not coordinate anything outside its own records:
 The report counts records that were structurally readable and logs that passed evidence verification. Problems identify the affected record or log.
 
 Automatic source selection for `compare()` requires the complete state to verify. Supplying a source chokepoint ID performs targeted verification of that source and the child evidence included in its comparison.
-
-An explicit comparison still reads and validates every pathway record to discover children, and every atom record when the selected source has children. An unrelated malformed or checksum-invalid pathway or atom record can block it. Logs and relationships remain verified for the selected evidence; explicit comparison does not perform complete state verification.
 
 Verification establishes consistency among local records and logs. It does not capture or prove the external conditions needed to reproduce a command.
 
@@ -199,7 +223,7 @@ See the [Python API](https://protention.dev/api/#store-store-read-verified-log) 
 
 Atoms retain command arguments, outcomes, timing, return codes, declared parameters, log paths, byte counts, and log digests. Logs retain command output. Pathways retain branch reasons and effective declared parameters. An unfinished attempt retains the same command arguments and declared parameters as the atom it becomes.
 
-Environment values are inherited by the child process but are not serialized. Dependency versions, workspace contents, process memory, network activity, and external-system state are not recorded. The source revision is recorded only when [launch context](#stored-information-optional-launch-context) is requested.
+Environment values are inherited by the child process but are not serialized. Dependency versions, workspace contents, process memory, network activity, and external-system state are not recorded. The source revision is recorded only when [launch context](https://protention.dev/state/#stored-information-optional-launch-context) is requested.
 
 ### Optional launch context
 

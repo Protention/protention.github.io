@@ -58,5 +58,7 @@ const sitemap = await read('sitemap.xml');
 for (const page of pages) assert(sitemap.includes(`<loc>${site.origin}${page.route}</loc>`));
 assert((await read('robots.txt')).includes(`${site.origin}/sitemap.xml`));
 assert((await read('llms.txt')).includes(site.sourceRef));
-assert(documents.get('/').html.includes('It cannot read or convert'), 'Existing compatibility notice');
+const overview = documents.get('/').html;
+assert(overview.includes('cannot read or convert') && overview.includes('0.4 or earlier') && overview.includes('exit status 2'), 'Format compatibility notice');
+assert(overview.includes(`${site.repository}/blob/${site.sourceRef}/tools/migrations/README.md`), 'Pinned standalone migration guide');
 console.log(`Verified all six copied docs: complete existing content, exact Markdown exports, ${links} internal links, anchors, clean URLs, legacy routes, source pins, and palette.`);
