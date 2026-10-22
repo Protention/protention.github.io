@@ -70,7 +70,7 @@ The old directory is never modified. Decide per project before upgrading:
 | You want to | Do this |
 | --- | --- |
 | Keep working with the existing records | Stay on 0.4 for that project: `python -m pip install "ocura-oss<0.5"` in its environment. 0.4 reads and extends the directory as before |
-| Carry complete 0.4 records into schema 2 | Use the optional [repository-only migration script](https://github.com/Protention/ocura-oss/blob/8aeda23e41fe960a5f572267fd28695fa2f79172/tools/migrations/README.md). It verifies the input and creates a separate copy with a migration receipt, retaining IDs, history, and log bytes. It is excluded from both pip distributions |
+| Carry complete 0.4 records into schema 2 | Use the optional [repository-only migration script](https://github.com/Protention/ocura-oss/blob/fa4e5df42c7c552d1b83763d4a0c7208b3be357e/tools/migrations/README.md). It verifies the input and creates a separate copy with a migration receipt, retaining IDs, history, and log bytes. It is excluded from both pip distributions |
 | Start recording with a current version in the same project | Move the old directory aside, then run `ocura-oss init`. For example `mv .ocura-oss .ocura-oss-0.4`, or in PowerShell `Rename-Item .ocura-oss .ocura-oss-0.4` |
 | Look at old records after upgrading | The logs under the moved directory's `logs/` are plain files, and the records are plain JSON. To use 0.4's commands on them again, move the directory back to `.ocura-oss` in an environment that has 0.4 |
 

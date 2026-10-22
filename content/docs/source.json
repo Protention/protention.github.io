@@ -1,14 +1,14 @@
 {
-  "copiedFrom": "https://github.com/Protention/ocura-oss/tree/8aeda23e41fe960a5f572267fd28695fa2f79172",
+  "copiedFrom": "https://github.com/Protention/ocura-oss/tree/fa4e5df42c7c552d1b83763d4a0c7208b3be357e",
   "version": "0.6.0",
   "packageRepository": "https://github.com/Protention/ocura-oss",
-  "packageSourceRef": "8aeda23e41fe960a5f572267fd28695fa2f79172",
+  "packageSourceRef": "fa4e5df42c7c552d1b83763d4a0c7208b3be357e",
   "files": [
     {
       "file": "ocura-oss.md",
       "source": "docs/index.md",
-      "sha256": "98df5bcec9e3e1989ed19d563f44d0544c2d96112ae819fbe77dba211c98cdc2",
-      "originalSha256": "67425b3cf2c5d5c5eb05eb67cef6ca338750932d517bce667282e6619dbbcecd"
+      "sha256": "bb1b32b7e3a930817cf80d489e07ccddfecf2c1dc330826e10b4af0a40c222f7",
+      "originalSha256": "6a0b9d1b2a5e05336a146bf172d884cd117fc9fc71f97b09daffcd71066dffe3"
     },
     {
       "file": "cli.md",
@@ -19,8 +19,8 @@
     {
       "file": "api.md",
       "source": "docs/python-api.md",
-      "sha256": "12d6a88e50bfd6aaa070b7520e1ddc147ecf31d3bc3677d02e82fdbabb349d62",
-      "originalSha256": "2abb190aa58ecc224cc5437497f15fd61e65323f8de4c0bf1c63e74712547b17"
+      "sha256": "855e854b98263d4bf9fdc32b336901683bdefe0f7261bcf5de01d9d39a2a45f5",
+      "originalSha256": "ca2fbe4243725183f6fdbcc85dfe96b66557558a2ea8ae569892996043242dcb"
     },
     {
       "file": "automation.md",
@@ -37,7 +37,7 @@
     {
       "file": "state.md",
       "source": "docs/state-and-verification.md",
-      "sha256": "b1e4a31aefec2560ef22643581627d408a32d9b2297db7da7f3b1e596d784552",
+      "sha256": "83abdaa5e5cb5bf037d61e47c350a459e13c22ae457ed6c8814a61b4023a5c02",
       "originalSha256": "15450f44dea7d26d8b912ddcc59d7ea5d05b02432cdc836ba81ce96e096f103f"
     }
   ]

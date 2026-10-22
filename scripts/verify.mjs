@@ -59,6 +59,7 @@ for (const page of pages) assert(sitemap.includes(`<loc>${site.origin}${page.rou
 assert((await read('robots.txt')).includes(`${site.origin}/sitemap.xml`));
 assert((await read('llms.txt')).includes(site.sourceRef));
 const overview = documents.get('/').html;
-assert(overview.includes('cannot read or convert') && overview.includes('0.4 or earlier') && overview.includes('exit status 2'), 'Format compatibility notice');
+const stateReference = documents.get('/state/').html;
+assert(stateReference.includes('0.4 or earlier') && stateReference.includes('exit status 2'), 'Upgrade reference');
 assert(overview.includes(`${site.repository}/blob/${site.sourceRef}/tools/migrations/README.md`), 'Pinned standalone migration guide');
 console.log(`Verified all six copied docs: complete existing content, exact Markdown exports, ${links} internal links, anchors, clean URLs, legacy routes, source pins, and palette.`);

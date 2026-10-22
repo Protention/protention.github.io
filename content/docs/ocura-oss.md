@@ -47,8 +47,6 @@ all ledger records and captured logs.
 - **The first error says what to do.** A command run where there is no state names
   `ocura-oss init`, or the directory above that already holds state.
 
-The record format is unchanged: 0.6.0 reads and extends state written by 0.5.0.
-
 ## New in 0.5.0
 
 - **Unfinished runs stay visible.** Each run is journaled before its command starts.
@@ -65,24 +63,10 @@ The record format is unchanged: 0.6.0 reads and extends state written by 0.5.0.
 - **Later rewrites can be detected.** `ocura-oss manifest` prints checksums to keep
   elsewhere, and `verify --against` checks the state against them.
 - **Verification is stricter.** Every atom must have exactly one chokepoint.
-- **Format changes follow a stated rule.** Readers ignore fields they do not know,
-  so later releases can add optional fields without another format break.
 
 The core runtime still uses only the standard library. See
 [state and verification](https://protention.dev/state/) for the format, attempts,
 concurrent use, and the limits of each option.
-
-**Upgrading from 0.4:** version 0.5.0 changed the record format to schema 2. Versions
-0.5.0 and later cannot read or convert a `.ocura-oss/` directory written by 0.4 or earlier. Commands pointed
-at old state stop with exit status 2 and leave it untouched. Stay on 0.4 for a project
-whose records you still need (`python -m pip install "ocura-oss<0.5"`), or move the old
-directory aside and run `ocura-oss init`. See
-[upgrading from 0.4](https://protention.dev/state/#format-compatibility-upgrading-from-0-4) before you upgrade.
-
-An optional [repository-only migration tool](https://github.com/Protention/ocura-oss/blob/8aeda23e41fe960a5f572267fd28695fa2f79172/tools/migrations/README.md)
-can copy a complete 0.4 ledger into schema 2 while retaining its original records
-and logs. The tool uses only the standard library and is excluded from the pip
-package; ordinary package commands still perform no automatic conversion.
 
 ## Install and try
 
@@ -213,6 +197,7 @@ exit codes, parameter labels, and how to inspect earlier attempts.
 - [Python API](https://protention.dev/api/): functions, typed results, and `Store`
 - [State and verification](https://protention.dev/state/): records and checks
 - [Autoregressive example](https://protention.dev/examples/): PyTorch, JAX, and Ray
+- [Migration tool](https://github.com/Protention/ocura-oss/blob/fa4e5df42c7c552d1b83763d4a0c7208b3be357e/tools/migrations/README.md): optional import of 0.4 ledgers, downloaded separately
 
 Repository references describe this checkout and remain readable directly on GitHub.
 The documentation for the published release is also [available online](https://protention.dev/).
@@ -226,7 +211,7 @@ a **chokepoint** identifies terminal evidence from which a branch can be created
 Each branch records its source and reason. It represents a new line of work;
 workspace files, process state, and model weights are managed by the workload.
 Several processes may record runs under one state root at once. Delete `.ocura-oss/`
-to discard that project's records. State from 0.4 and earlier is unsupported.
+to discard that project's records.
 
 Commands run with `shell=False` in the project root and inherit the invoking
 environment's permissions. Use trusted, owner-authorized workloads. For generated
@@ -240,12 +225,12 @@ authenticate authorship or prevent a writer from replacing records and checksums
 
 ## Project status
 
-Ocura OSS is research software under the [Apache License 2.0](https://github.com/Protention/ocura-oss/blob/8aeda23e41fe960a5f572267fd28695fa2f79172/LICENSE).
+Ocura OSS is research software under the [Apache License 2.0](https://github.com/Protention/ocura-oss/blob/fa4e5df42c7c552d1b83763d4a0c7208b3be357e/LICENSE).
 Versions 0.5.0 and earlier were released under MPL-2.0. The 0.x interface and record
 format may change before 1.0, and there is no production support commitment.
 
-Bug reports and focused pull requests are welcome. See [Contributing](https://github.com/Protention/ocura-oss/blob/8aeda23e41fe960a5f572267fd28695fa2f79172/CONTRIBUTING.md)
-and the [security policy](https://github.com/Protention/ocura-oss/blob/8aeda23e41fe960a5f572267fd28695fa2f79172/SECURITY.md).
+Bug reports and focused pull requests are welcome. See [Contributing](https://github.com/Protention/ocura-oss/blob/fa4e5df42c7c552d1b83763d4a0c7208b3be357e/CONTRIBUTING.md)
+and the [security policy](https://github.com/Protention/ocura-oss/blob/fa4e5df42c7c552d1b83763d4a0c7208b3be357e/SECURITY.md).
 
 ## Command help
 
