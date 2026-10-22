@@ -1,6 +1,6 @@
 # Ocura OSS
 
-Version 0.5.0.
+Version 0.6.0.
 
 A local execution ledger for recording, branching, and comparing command runs.
 
@@ -12,14 +12,42 @@ records and logs before branching or comparing them.
 Use it from your terminal, Python scripts, or an AI agent with a shell. The CLI
 provides JSON output throughout the workflow; the Python API returns typed results.
 
-## New in 0.5.0
+## Why use it
 
-**Version 0.5.0 changes the record format to schema 2. It cannot read or convert a
-`.ocura-oss/` directory written by 0.4 or earlier.** Commands pointed at old state stop
-with exit status 2 and leave it untouched. Stay on 0.4 for a project whose records you
-still need (`python -m pip install "ocura-oss<0.5"`), or move the old directory aside
-and run `ocura-oss init`. See [upgrading from 0.4](https://protention.dev/state/#format-compatibility-upgrading-from-0-4)
-before you upgrade.
+Ocura OSS is built to just work. It aims to be the easiest way to start recording
+runs in a new project, especially for local development:
+
+- **Dependency free.** It needs Python 3.11 or later and nothing else. Installing
+  it adds no runtime dependencies to your project.
+- **Easy setup.** `pip install ocura-oss`, then `ocura-oss init`. There is no
+  server, database, account, or configuration file. Every command accepts `--json`
+  and returns a documented exit code, so an AI agent with a shell can do the setup
+  and run the whole workflow.
+- **Easy to modify.** The whole package is twelve modules, about 4,200 lines of
+  typed Python, and its records are plain JSON files. You or an agent can read all
+  of it and change it to fit your workflow, and the Apache-2.0 license does not
+  require you to publish your changes.
+
+To remove the ledger, delete `.ocura-oss/` in your project. That directory holds
+all ledger records and captured logs.
+
+## New in 0.6.0
+
+- **Apache-2.0 license.** Version 0.6.0 and later are released under the Apache
+  License 2.0. Versions 0.5.0 and earlier remain under MPL-2.0.
+- **IDs can be shortened.** `branch --from`, `compare --from`, and `run --pathway`
+  accept the first four or more hexadecimal characters of an ID when they match
+  one record.
+- **A run on a branch records the branch's parameters.** The child `run` no longer
+  repeats them. A `--param` on the run still replaces the value for its key.
+- **Stopping the recorder stops the command.** `ocura-oss run` handles `SIGTERM`,
+  `SIGHUP`, and Ctrl+Break like Ctrl+C and records the run as `interrupted`. If
+  the recorder is killed outright, Windows and Linux end the command; on macOS it
+  keeps running.
+- **The first error says what to do.** A command run where there is no state names
+  `ocura-oss init`, or the directory above that already holds state.
+
+## New in 0.5.0
 
 - **Unfinished runs stay visible.** Each run is journaled before its command starts.
   If the recording process is interrupted twice or killed, `ocura-oss attempts` shows
@@ -35,8 +63,6 @@ before you upgrade.
 - **Later rewrites can be detected.** `ocura-oss manifest` prints checksums to keep
   elsewhere, and `verify --against` checks the state against them.
 - **Verification is stricter.** Every atom must have exactly one chokepoint.
-- **Format changes follow a stated rule.** Readers ignore fields they do not know,
-  so later releases can add optional fields without another format break.
 
 The core runtime still uses only the standard library. See
 [state and verification](https://protention.dev/state/) for the format, attempts,
@@ -63,24 +89,64 @@ run `python -m pip install .` from its root.
 ocura-oss init --name example --json
 ocura-oss run --json --param count=1 -- python -c "print(1)"
 ocura-oss branch --json --from <chokepoint-id> --reason "try count 2" --param count=2
-ocura-oss run --json --pathway <child-pathway-id> --param count=2 -- python -c "print(2)"
+ocura-oss run --json --pathway <child-pathway-id> -- python -c "print(2)"
 ocura-oss verify --json
-ocura-oss compare --json --from <chokepoint-id>
+ocura-oss compare --json
 ```
 
 Use the baseline's `chokepoint_id` to branch and the branch result's `id` for the
-child run. `compare` reports each variant's relationship to its source, parameter
-changes, outcomes, and timing. Read the recorded output logs for workload-specific
-metrics, such as validation loss or accuracy.
+child run. When typing an ID by hand, its first four or more hexadecimal characters
+are enough if they match one record.
+
+Without `--json`, `compare` prints:
+
+```text
+comparison: ready
+source chokepoint: chokepoint-eb61ef56491042ae94e61d1387f3f0d5
+source pathway: pathway-1378d1d28cb54987b9e80d59d61aec74
+source run: passed 0.056063s
+child pathway: pathway-ce4c71137dd449398fe2b4e0198c83c3
+  reason: try count 2
+  parameters: added count=2
+  source run: passed 0.056063s
+  child run: passed 0.061312s
+  run parameters: changed count (1 -> 2)
+```
+
+`compare` reports each variant's relationship to its source, parameter changes,
+outcomes, and timing. `parameters` is how the branch differs from the pathway it
+came from; `run parameters` is how the labels the two runs recorded differ. With no
+`--from`, it compares the newest baseline that has a branch. Read the recorded
+output logs for workload-specific metrics, such as validation loss or accuracy.
 
 **Parameters are recorded labels.** Set actual inputs in your command as well:
-`--param batch=4 -- python train.py --batch 4`. Each run records its own labels.
-To declare a value once, add `--substitute` and write `"{batch}"` in the command.
+`--param batch=4 -- python train.py --batch 4`. A run on a branch records the
+branch's parameters without repeating them, and can add or replace labels with its
+own `--param`. To declare a value once, add `--substitute` and write `"{batch}"` in
+the command.
 
 Omit `--json` for terminal output. By default, `run` streams the command's output
 while retaining stdout and stderr logs; `--json` or `--quiet` keeps that output in
-the logs without streaming. A first Ctrl+C records an interrupted attempt; a
-second exits immediately and leaves the attempt for `ocura-oss recover` to close.
+the logs without streaming. A first Ctrl+C, or a `SIGTERM` sent to
+`ocura-oss run`, stops the command and records an interrupted attempt; a second
+Ctrl+C exits immediately and leaves the attempt for `ocura-oss recover` to close.
+
+## When to use something else
+
+Ocura OSS records what ran, how runs relate, and whether those records are still
+intact. It stops there on purpose:
+
+- **You want dashboards, metric charts, or a tracking server shared by a team.**
+  Use an experiment tracker such as [MLflow](https://mlflow.org/). Ocura OSS has no
+  server and no user interface, and it keeps your output as logs without reading
+  metrics from it.
+- **You need to version datasets or model files, or rebuild a pipeline.** Use a
+  tool such as [DVC](https://dvc.org/). A branch here is lineage metadata; it does
+  not snapshot files.
+- **You run one command and keep its output.** A log file is enough.
+
+Ocura OSS sits between these: more structure than loose log files, and far less to
+adopt than a tracking platform.
 
 ## Autoregressive example: PyTorch, JAX, and Ray
 
@@ -111,7 +177,7 @@ from ocura_oss import branch, compare, initialize, run, verify
 root = initialize("experiment", name="example").root
 baseline = run([sys.executable, "-c", "print(1)"], root=root, parameters={"count": "1"})
 child = branch(baseline.chokepoint.id, root=root, reason="try count 2", parameters={"count": "2"})
-run([sys.executable, "-c", "print(2)"], root=root, pathway_id=child.id, parameters={"count": "2"})
+run([sys.executable, "-c", "print(2)"], root=root, pathway_id=child.id)
 assert verify(root).ok
 comparison = compare(baseline.chokepoint.id, root=root)
 ```
@@ -131,8 +197,10 @@ exit codes, parameter labels, and how to inspect earlier attempts.
 - [Python API](https://protention.dev/api/): functions, typed results, and `Store`
 - [State and verification](https://protention.dev/state/): records and checks
 - [Autoregressive example](https://protention.dev/examples/): PyTorch, JAX, and Ray
+- [Migration tool](https://github.com/Protention/ocura-oss/blob/fa4e5df42c7c552d1b83763d4a0c7208b3be357e/tools/migrations/README.md): optional import of 0.4 ledgers, downloaded separately
 
-These references describe the published 0.5.0 release. Source links point to the matching release commit.
+Repository references describe this checkout and remain readable directly on GitHub.
+The documentation for the published release is also [available online](https://protention.dev/).
 
 ## Local state and operating model
 
@@ -143,7 +211,7 @@ a **chokepoint** identifies terminal evidence from which a branch can be created
 Each branch records its source and reason. It represents a new line of work;
 workspace files, process state, and model weights are managed by the workload.
 Several processes may record runs under one state root at once. Delete `.ocura-oss/`
-to discard that project's records. State from 0.4 and earlier is unsupported.
+to discard that project's records.
 
 Commands run with `shell=False` in the project root and inherit the invoking
 environment's permissions. Use trusted, owner-authorized workloads. For generated
@@ -157,14 +225,12 @@ authenticate authorship or prevent a writer from replacing records and checksums
 
 ## Project status
 
-Ocura OSS is research software under [MPL-2.0](https://github.com/Protention/ocura-oss/blob/9b1e07276e83868ffb2dce4570e0dce0e84be8c5/LICENSE). The 0.x interface and record
+Ocura OSS is research software under the [Apache License 2.0](https://github.com/Protention/ocura-oss/blob/fa4e5df42c7c552d1b83763d4a0c7208b3be357e/LICENSE).
+Versions 0.5.0 and earlier were released under MPL-2.0. The 0.x interface and record
 format may change before 1.0, and there is no production support commitment.
 
-The package adapts an early Ocura research concept. Current Ocura engine development
-is a separate project.
-
-Bug reports and focused pull requests are welcome. See [Contributing](https://github.com/Protention/ocura-oss/blob/9b1e07276e83868ffb2dce4570e0dce0e84be8c5/CONTRIBUTING.md)
-and the [security policy](https://github.com/Protention/ocura-oss/blob/9b1e07276e83868ffb2dce4570e0dce0e84be8c5/SECURITY.md).
+Bug reports and focused pull requests are welcome. See [Contributing](https://github.com/Protention/ocura-oss/blob/fa4e5df42c7c552d1b83763d4a0c7208b3be357e/CONTRIBUTING.md)
+and the [security policy](https://github.com/Protention/ocura-oss/blob/fa4e5df42c7c552d1b83763d4a0c7208b3be357e/SECURITY.md).
 
 ## Command help
 

@@ -1,38 +1,44 @@
 {
-  "copiedFrom": "https://ocuna-ai.com/docs",
-  "version": "0.5.0",
+  "copiedFrom": "https://github.com/Protention/ocura-oss/tree/fa4e5df42c7c552d1b83763d4a0c7208b3be357e",
+  "version": "0.6.0",
   "packageRepository": "https://github.com/Protention/ocura-oss",
-  "packageSourceRef": "9b1e07276e83868ffb2dce4570e0dce0e84be8c5",
+  "packageSourceRef": "fa4e5df42c7c552d1b83763d4a0c7208b3be357e",
   "files": [
     {
       "file": "ocura-oss.md",
-      "sha256": "266af8309acb6ce4004e80ef39d5264157c9f3921fba3f035417cb38774ee5b1",
-      "originalSha256": "62f5449fbcb53202b1fa33336ccdefbbf7f614395527a61a026b9d7b535b7fff"
+      "source": "docs/index.md",
+      "sha256": "bb1b32b7e3a930817cf80d489e07ccddfecf2c1dc330826e10b4af0a40c222f7",
+      "originalSha256": "6a0b9d1b2a5e05336a146bf172d884cd117fc9fc71f97b09daffcd71066dffe3"
     },
     {
       "file": "cli.md",
-      "sha256": "d9195a90b67fe30de8e9957b93565759a42915b3a869af88ad5bb4edfd95e13c",
-      "originalSha256": "68ed4b6e31202c37f88fc700167b146218b9ff7407fd19c617b99a29e0a270af"
+      "source": "docs/cli.md",
+      "sha256": "36bf438661ba70df88fa3ea3e8f085fbb4b7a3310fa5425c4925a95a8841f8cc",
+      "originalSha256": "55f84c65a28c48611d17bde8a2ac4d75f7e3a67f2eb1ac666588fccdba7af4e6"
     },
     {
       "file": "api.md",
-      "sha256": "6b35c9a8d2d876eca9449417a7aceb04c4e0f4d061836fac8a02aa8770010f6d",
-      "originalSha256": "6e792e49af23f0bad92dcd0f8d777033d8770164956d36393f54f172d5a3e926"
+      "source": "docs/python-api.md",
+      "sha256": "855e854b98263d4bf9fdc32b336901683bdefe0f7261bcf5de01d9d39a2a45f5",
+      "originalSha256": "ca2fbe4243725183f6fdbcc85dfe96b66557558a2ea8ae569892996043242dcb"
     },
     {
       "file": "automation.md",
-      "sha256": "468660754255b8a513701d7991c792ddf461acf4c8b797f83e9bcd185136daa0",
-      "originalSha256": "e524ab6122087ff716cda3156bdf1a5cac172b5ced2e050cbfcf5cb1468241d1"
+      "source": "docs/automation.md",
+      "sha256": "e4b11f42749b518af439d363b233f35103fe78c58bde7d50698791120155ed1b",
+      "originalSha256": "024c2853e30cd1f16d3d0b9ce039189397dcb6524a299474fe559373326833d4"
     },
     {
       "file": "examples.md",
-      "sha256": "5ada7e90ef72b7bb17c62a85a9d1a7a6e9c6de58ecaae04cbac220f5df33cb79",
-      "originalSha256": "6ee06b3128135c08aded1f3797b443cac786522abb28b16915fd57793699ad8b"
+      "source": "examples/autoregressive/README.md",
+      "sha256": "1d684dfd83fe05f88844bd8f396675bff1494f6da8907b42218e00b9cfd4647c",
+      "originalSha256": "6a46eb1ed23b2712d51c0b02ed1d0a9fd47cbdabc93d0ad21b482c7db7f15e0d"
     },
     {
       "file": "state.md",
-      "sha256": "8aa3426fb2a6962945eb484722106e448f1592d338b60bd94e7a4dd8bef2ddcf",
-      "originalSha256": "5a1eab79ba03585af8e4e8d67f2901bf79efac5989633bebc73a90dd495bd6c5"
+      "source": "docs/state-and-verification.md",
+      "sha256": "83abdaa5e5cb5bf037d61e47c350a459e13c22ae457ed6c8814a61b4023a5c02",
+      "originalSha256": "15450f44dea7d26d8b912ddcc59d7ea5d05b02432cdc836ba81ce96e096f103f"
     }
   ]
 }
