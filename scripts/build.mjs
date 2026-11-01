@@ -90,6 +90,7 @@ for (const page of pages) {
       <nav class="docs-source-links" aria-label="Alternative documentation formats">
         <a href="/docs/${page.file}">Read Markdown</a>
         <a href="${site.repository}/blob/${site.sourceRef}/${page.source}">Read on GitHub</a>
+        ${page.archive ? `<a href="${e(page.archive.url)}">${e(page.archive.label)}</a>` : ''}
       </nav>
       <div class="docs-prose">${rewriteLinks(renderMarkdown(markdown))}</div>
     </article>
@@ -106,4 +107,4 @@ await output('robots.txt', `User-agent: *\nAllow: /\nSitemap: ${site.origin}/sit
 await output('llms.txt', `# Ocura OSS ${site.version}\n\n> A local execution ledger for recording, branching, and comparing command runs.\n\n${pages.map((page) => `- [${page.label}](${site.origin}${page.route})\n  Markdown: ${site.origin}/docs/${page.file}`).join('\n')}\n\nSource: ${site.repository}/tree/${site.sourceRef}\n`);
 await output('404.html', '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>Not found · Protention</title><style>html,body{margin:0;background:#000;color:#fff}</style></head><body></body></html>\n');
 await output('.nojekyll', '');
-console.log('Built the existing six documentation pages, with the overview at / and clean reference URLs.');
+console.log(`Built ${pages.length} documentation pages, with the overview at / and clean reference URLs.`);

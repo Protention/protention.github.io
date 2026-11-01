@@ -94,8 +94,27 @@ export function renderMarkdown(markdown) {
   let parentId = "";
   let index = 0;
 
+  // Keep hosted 0.6 type links alongside the aliases in the 0.7 source docs.
+  const legacyAnchors = {
+    ocura_ossden: "ocura-oss-den",
+    ocura_ossatom: "ocura-oss-atom",
+    ocura_osschokepoint: "ocura-oss-chokepoint",
+  };
+
   while (index < lines.length) {
     const line = lines[index];
+
+    // Permit only standalone, empty ID anchors; other HTML remains escaped.
+    const anchor = /^<a id="([A-Za-z][A-Za-z0-9_-]*)"><\/a>$/.exec(line);
+    if (anchor) {
+      for (const id of [anchor[1], legacyAnchors[anchor[1]]].filter(Boolean)) {
+        if (used.has(id)) throw new Error(`Duplicate explicit anchor: ${id}`);
+        used.add(id);
+        html.push(`<a id="${id}"></a>`);
+      }
+      index += 1;
+      continue;
+    }
 
     if (line.startsWith("```")) {
       const fenceLang = line.slice(3).trim();

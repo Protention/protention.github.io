@@ -1,44 +1,56 @@
 {
-  "copiedFrom": "https://github.com/Protention/ocura-oss/tree/fa4e5df42c7c552d1b83763d4a0c7208b3be357e",
-  "version": "0.6.0",
+  "copiedFrom": "https://github.com/Protention/ocura-oss/tree/db15ec5548bc9e5c6aac778033e9fe0ba4ebd346",
+  "version": "0.7.0",
   "packageRepository": "https://github.com/Protention/ocura-oss",
-  "packageSourceRef": "fa4e5df42c7c552d1b83763d4a0c7208b3be357e",
+  "packageSourceRef": "db15ec5548bc9e5c6aac778033e9fe0ba4ebd346",
   "files": [
     {
       "file": "ocura-oss.md",
       "source": "docs/index.md",
-      "sha256": "bb1b32b7e3a930817cf80d489e07ccddfecf2c1dc330826e10b4af0a40c222f7",
-      "originalSha256": "6a0b9d1b2a5e05336a146bf172d884cd117fc9fc71f97b09daffcd71066dffe3"
+      "sha256": "40974fb0f3ae2e3865c4abf5b19fe6f2962c1eccf1448d4cecd02329ce531ed7",
+      "originalSha256": "31967a64ba71e0c7111a46e67b27950a62351a91263a576362914eef67e6487a"
     },
     {
       "file": "cli.md",
       "source": "docs/cli.md",
-      "sha256": "36bf438661ba70df88fa3ea3e8f085fbb4b7a3310fa5425c4925a95a8841f8cc",
-      "originalSha256": "55f84c65a28c48611d17bde8a2ac4d75f7e3a67f2eb1ac666588fccdba7af4e6"
+      "sha256": "db24a254b8014cc6f06f7345e861aea5d9d91b4c506481de87b09c3a69025d84",
+      "originalSha256": "e9145d9ddfea2e392e545402374a7b4ab304f3f78b4e19a8aff6bbac5b15f303"
     },
     {
       "file": "api.md",
       "source": "docs/python-api.md",
-      "sha256": "855e854b98263d4bf9fdc32b336901683bdefe0f7261bcf5de01d9d39a2a45f5",
-      "originalSha256": "ca2fbe4243725183f6fdbcc85dfe96b66557558a2ea8ae569892996043242dcb"
+      "sha256": "14bd97a96c9813f375e1ff1dfdb0ce2cafe3874d8960db1fbfccaae53d86eb5e",
+      "originalSha256": "a978c5222c43f2914566e87c491b73a9a9192afaa509a04eeaeb4ebf42369538"
     },
     {
       "file": "automation.md",
       "source": "docs/automation.md",
-      "sha256": "e4b11f42749b518af439d363b233f35103fe78c58bde7d50698791120155ed1b",
-      "originalSha256": "024c2853e30cd1f16d3d0b9ce039189397dcb6524a299474fe559373326833d4"
+      "sha256": "cf20e8dddf984b5a9bfe7f23a04119cdbb2a5e776c2f09f41c7a23b4240f536e",
+      "originalSha256": "437a9ea19b1667f7c3a9843ae651866ed9fab15b31a3c354ab25e4f9a0981bfd"
     },
     {
       "file": "examples.md",
-      "source": "examples/autoregressive/README.md",
-      "sha256": "1d684dfd83fe05f88844bd8f396675bff1494f6da8907b42218e00b9cfd4647c",
-      "originalSha256": "6a46eb1ed23b2712d51c0b02ed1d0a9fd47cbdabc93d0ad21b482c7db7f15e0d"
+      "source": "docs/use-cases.md",
+      "sha256": "fb1a381061b1fd103aa0ba595ec4e6aebf004493c9c98fe349ad869cee52d2e4",
+      "originalSha256": "a79a721441789c2db8250659cce7ba1e73487338c8f8b7e46b2ee49fad10a8fe"
+    },
+    {
+      "file": "naming.md",
+      "source": "docs/naming-migration.md",
+      "sha256": "e3bd8573d4f1ed80876d1b58df06adf277ad3a8460df3630438c8950b852e2fd",
+      "originalSha256": "7b18c748fc2bbc609e66bd851b42299f18f7c8a18953952197c874b9bea71d4c"
+    },
+    {
+      "file": "compression.md",
+      "source": "docs/autocompression.md",
+      "sha256": "1868297ecacdc45cee02f43b802aef52d4468bc18db5daa90b8574eaadc8e23a",
+      "originalSha256": "24e71bef1090be8b4fdac993de1e9560ce3f1802bc90e62dc97431fad7c5cf8e"
     },
     {
       "file": "state.md",
       "source": "docs/state-and-verification.md",
-      "sha256": "83abdaa5e5cb5bf037d61e47c350a459e13c22ae457ed6c8814a61b4023a5c02",
-      "originalSha256": "15450f44dea7d26d8b912ddcc59d7ea5d05b02432cdc836ba81ce96e096f103f"
+      "sha256": "14422981cfa6eeb8e19a4ef207b37f6943cb8dbfa8d0735371c46276b8158720",
+      "originalSha256": "46fc65a126b1dea3f02f68ae791d4e07c1f291e86c1855e738297d585185c6e4"
     }
   ]
 }
