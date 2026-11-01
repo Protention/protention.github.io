@@ -1,6 +1,6 @@
 # Ocura OSS
 
-Version 0.6.0.
+Version 0.7.0.
 
 A local execution ledger for recording, branching, and comparing command runs.
 
@@ -11,6 +11,17 @@ records and logs before branching or comparing them.
 
 Use it from your terminal, Python scripts, or an AI agent with a shell. The CLI
 provides JSON output throughout the workflow; the Python API returns typed results.
+
+## New in 0.7.0
+
+Version 0.7 adds descriptive Python names, `runs` and `show` for history
+discovery, bounded verified log reads, and opt-in `--json-errors` for structured
+failures. It also adds `run --from ID --reason TEXT` to create and execute a
+variation in one call. The
+[history example](https://github.com/Protention/ocura-oss/blob/db15ec5548bc9e5c6aac778033e9fe0ba4ebd346/examples/history/README.md) starts with only a project root, retains failed
+retries and empty variations, and returns verified excerpts with stable references.
+The [naming guide](https://protention.dev/naming/) maps descriptive names to compatible legacy names
+and unchanged JSON fields. Existing ledgers and callers remain compatible.
 
 ## Why use it
 
@@ -23,10 +34,9 @@ runs in a new project, especially for local development:
   server, database, account, or configuration file. Every command accepts `--json`
   and returns a documented exit code, so an AI agent with a shell can do the setup
   and run the whole workflow.
-- **Easy to modify.** The whole package is twelve modules, about 4,200 lines of
-  typed Python, and its records are plain JSON files. You or an agent can read all
-  of it and change it to fit your workflow, and the Apache-2.0 license does not
-  require you to publish your changes.
+- **Easy to inspect and adapt.** Records are plain JSON files, and the typed
+  Python API is available alongside the CLI. The Apache-2.0 license permits
+  modifications without requiring you to publish them.
 
 To remove the ledger, delete `.ocura-oss/` in your project. That directory holds
 all ledger records and captured logs.
@@ -62,7 +72,7 @@ all ledger records and captured logs.
   git revision; `--context-file` records a file's digest.
 - **Later rewrites can be detected.** `ocura-oss manifest` prints checksums to keep
   elsewhere, and `verify --against` checks the state against them.
-- **Verification is stricter.** Every atom must have exactly one chokepoint.
+- **Verification is stricter.** Every run record must have exactly one branch point.
 
 The core runtime still uses only the standard library. See
 [state and verification](https://protention.dev/state/) for the format, attempts,
@@ -102,7 +112,7 @@ Without `--json`, `compare` prints:
 
 ```text
 comparison: ready
-source chokepoint: chokepoint-eb61ef56491042ae94e61d1387f3f0d5
+source branch point: chokepoint-eb61ef56491042ae94e61d1387f3f0d5
 source pathway: pathway-1378d1d28cb54987b9e80d59d61aec74
 source run: passed 0.056063s
 child pathway: pathway-ce4c71137dd449398fe2b4e0198c83c3
@@ -148,25 +158,24 @@ intact. It stops there on purpose:
 Ocura OSS sits between these: more structure than loose log files, and far less to
 adopt than a tracking platform.
 
-## Autoregressive example: PyTorch, JAX, and Ray
+## Primary example: record and inspect
 
-The [autoregressive example](https://protention.dev/examples/) trains a small
-character-level next-token model on an included text corpus. Choose PyTorch or
-JAX, run a baseline and a longer-training variant, then reconstruct the comparison
-from saved evidence. An optional Ray Core executor runs either backend as a local
-task. The example stays in the source repository; neither the wheel nor the source
-distribution includes its scripts or framework dependencies. Install only what you use.
-
-From a repository checkout, after installing Ocura:
+From this checkout, after `python -m pip install .`, create a small demonstration
+and inspect its retained history:
 
 ```console
-python -m pip install -r examples/autoregressive/requirements-pytorch.txt
-python examples/autoregressive/experiment.py run --backend pytorch --root ./ar-pytorch
-python examples/autoregressive/experiment.py report --root ./ar-pytorch
+ocura-oss demo --root ./ocura-oss-demo
+python examples/history/inspect_history.py --root ./ocura-oss-demo --archive
 ```
 
-The guide includes JAX and Ray commands. The script supplies metric reading and
-interpretation; the package supplies recording, lineage, and verification.
+Use a new destination for the demo; if it already exists from an earlier run,
+run only the inspection command. The [history guide](https://github.com/Protention/ocura-oss/blob/db15ec5548bc9e5c6aac778033e9fe0ba4ebd346/examples/history/README.md)
+explains the JSON report and how to inspect your own ledger. No optional dependencies
+are needed.
+
+The fuller CI-report, autoregressive, and Dream demonstrations live on the
+semi-permanent [`examples/0.7` branch](https://github.com/Protention/ocura-oss/tree/examples/0.7).
+See [use cases](https://protention.dev/examples/) for their requirements and checkout instructions.
 
 ## Python and automation
 
@@ -176,13 +185,13 @@ from ocura_oss import branch, compare, initialize, run, verify
 
 root = initialize("experiment", name="example").root
 baseline = run([sys.executable, "-c", "print(1)"], root=root, parameters={"count": "1"})
-child = branch(baseline.chokepoint.id, root=root, reason="try count 2", parameters={"count": "2"})
+child = branch(baseline.branch_point.id, root=root, reason="try count 2", parameters={"count": "2"})
 run([sys.executable, "-c", "print(2)"], root=root, pathway_id=child.id)
 assert verify(root).ok
-comparison = compare(baseline.chokepoint.id, root=root)
+comparison = compare(source_branch_point_id=baseline.branch_point.id, root=root)
 ```
 
-Use `Store(root).read_verified_log(atom_id, stream="stdout")` to consume verified
+Use `Store(root).read_verified_log(run_id=baseline.record.id, stream="stdout")` to consume verified
 output bytes. The method also accepts `stream="stderr"`; use `verify(root)` for a
 complete state check. See the [Python API](https://protention.dev/api/#store-store-read-verified-log).
 
@@ -196,17 +205,19 @@ exit codes, parameter labels, and how to inspect earlier attempts.
 - [CLI reference](https://protention.dev/cli/): every command, JSON fields, and exit codes
 - [Python API](https://protention.dev/api/): functions, typed results, and `Store`
 - [State and verification](https://protention.dev/state/): records and checks
-- [Autoregressive example](https://protention.dev/examples/): PyTorch, JAX, and Ray
-- [Migration tool](https://github.com/Protention/ocura-oss/blob/fa4e5df42c7c552d1b83763d4a0c7208b3be357e/tools/migrations/README.md): optional import of 0.4 ledgers, downloaded separately
+- [Examples](https://protention.dev/examples/): the primary walkthrough and demonstrations on `examples/0.7`
+- [Migration tool](https://github.com/Protention/ocura-oss/blob/db15ec5548bc9e5c6aac778033e9fe0ba4ebd346/tools/migrations/README.md): optional import of 0.4 ledgers, downloaded separately
 
 Repository references describe this checkout and remain readable directly on GitHub.
 The documentation for the published release is also [available online](https://protention.dev/).
 
 ## Local state and operating model
 
-State lives under `.ocura-oss/` in the project root. A **den** identifies that state;
-a **pathway** groups runs in a lineage; an **atom** records one command attempt;
-a **chokepoint** identifies terminal evidence from which a branch can be created.
+State lives under `.ocura-oss/` in the project root. A **ledger** identifies that
+state; a **pathway** groups runs in a lineage; a **run record** retains one command
+attempt; a **branch point** identifies terminal evidence from which a branch can
+be created. Older names (`Den`, `Atom`, and `Chokepoint`) remain Python aliases;
+stored IDs, directories, and JSON keys retain their existing spellings.
 
 Each branch records its source and reason. It represents a new line of work;
 workspace files, process state, and model weights are managed by the workload.
@@ -225,12 +236,12 @@ authenticate authorship or prevent a writer from replacing records and checksums
 
 ## Project status
 
-Ocura OSS is research software under the [Apache License 2.0](https://github.com/Protention/ocura-oss/blob/fa4e5df42c7c552d1b83763d4a0c7208b3be357e/LICENSE).
+Ocura OSS is research software under the [Apache License 2.0](https://github.com/Protention/ocura-oss/blob/db15ec5548bc9e5c6aac778033e9fe0ba4ebd346/LICENSE).
 Versions 0.5.0 and earlier were released under MPL-2.0. The 0.x interface and record
 format may change before 1.0, and there is no production support commitment.
 
-Bug reports and focused pull requests are welcome. See [Contributing](https://github.com/Protention/ocura-oss/blob/fa4e5df42c7c552d1b83763d4a0c7208b3be357e/CONTRIBUTING.md)
-and the [security policy](https://github.com/Protention/ocura-oss/blob/fa4e5df42c7c552d1b83763d4a0c7208b3be357e/SECURITY.md).
+Bug reports and focused pull requests are welcome. See [Contributing](https://github.com/Protention/ocura-oss/blob/db15ec5548bc9e5c6aac778033e9fe0ba4ebd346/CONTRIBUTING.md)
+and the [security policy](https://github.com/Protention/ocura-oss/blob/db15ec5548bc9e5c6aac778033e9fe0ba4ebd346/SECURITY.md).
 
 ## Command help
 
