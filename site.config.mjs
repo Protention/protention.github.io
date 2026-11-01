@@ -14,4 +14,5 @@ export const pages = [
   { route: '/naming/', previousRoute: '/docs/naming', label: 'Names and compatibility', file: 'naming.md', source: 'docs/naming-migration.md' },
   { route: '/compression/', previousRoute: '/docs/compression', label: 'Log compression', file: 'compression.md', source: 'docs/autocompression.md' },
   { route: '/state/', previousRoute: '/docs/state', label: 'State and verification', file: 'state.md', source: 'docs/state-and-verification.md' },
+  { route: '/releases/', previousRoute: '/docs/releases', label: 'Release history', file: 'releases.md', source: 'docs/index.md' },
 ];

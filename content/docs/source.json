@@ -7,8 +7,9 @@
     {
       "file": "ocura-oss.md",
       "source": "docs/index.md",
-      "sha256": "40974fb0f3ae2e3865c4abf5b19fe6f2962c1eccf1448d4cecd02329ce531ed7",
-      "originalSha256": "31967a64ba71e0c7111a46e67b27950a62351a91263a576362914eef67e6487a"
+      "sha256": "40f134ce48cfd637b81bf16124ec5546cca919d17c6ca490b8d1eca81016ae83",
+      "originalSha256": "31967a64ba71e0c7111a46e67b27950a62351a91263a576362914eef67e6487a",
+      "adaptation": "Older release highlights moved to releases.md; a history link and legacy anchors were added."
     },
     {
       "file": "cli.md",
@@ -51,6 +52,13 @@
       "source": "docs/state-and-verification.md",
       "sha256": "14422981cfa6eeb8e19a4ef207b37f6943cb8dbfa8d0735371c46276b8158720",
       "originalSha256": "46fc65a126b1dea3f02f68ae791d4e07c1f291e86c1855e738297d585185c6e4"
+    },
+    {
+      "file": "releases.md",
+      "source": "docs/index.md",
+      "sha256": "8025cf463849cc344c2bb799883c710b6f657892e8accf67f2ce16250d507164",
+      "originalSha256": "31967a64ba71e0c7111a46e67b27950a62351a91263a576362914eef67e6487a",
+      "adaptation": "New in 0.6.0 and New in 0.5.0 sections extracted unchanged from the adapted overview, with a title and link to the latest release."
     }
   ]
 }

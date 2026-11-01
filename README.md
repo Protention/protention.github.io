@@ -8,9 +8,11 @@ require `/index.html`. Older `/docs/` paths remain available as aliases.
 
 The Markdown documents in `content/docs/` come from the package revision
 recorded in `site.config.mjs` and `content/docs/source.json`. Text and code examples
-match that revision; link destinations are adapted for Protention. The manifest
-records both source and exported Markdown checksums. The existing renderer and
-layout use black backgrounds, white text, and light-blue accents. Markdown
+match that revision; link destinations are adapted for Protention. The overview
+keeps only the latest "New in" section; earlier highlights live on `/releases/`.
+Keep this split when refreshing from a new release. The manifest records both
+source and exported Markdown checksums and notes the section split. The existing
+renderer and layout use black backgrounds, white text, and light-blue accents. Markdown
 downloads use absolute URLs so their links work outside the site. Source links
 stay pinned to the same package revision as the displayed documentation.
 
