@@ -8,7 +8,9 @@ require `/index.html`. Older `/docs/` paths remain available as aliases.
 
 The Markdown documents in `content/docs/` come from the package revision
 recorded in `site.config.mjs` and `content/docs/source.json`. Text and code examples
-match that revision; link destinations are adapted for Protention. The overview
+match that revision unless the source manifest records an adaptation; link
+destinations are adapted for Protention. The examples page tracks the separately
+maintained catalog's released-package setup. The overview
 keeps only the latest "New in" section; earlier highlights live on `/releases/`.
 Keep this split when refreshing from a new release. The manifest records both
 source and exported Markdown checksums and notes the section split. The existing

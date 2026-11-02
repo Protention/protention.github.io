@@ -23,20 +23,25 @@ how to inspect your own ledger. No optional dependencies are needed.
 
 ## Fuller demonstrations
 
-These examples retain their own **0.7.0.dev0 package snapshot**. Use a separate checkout
-so you can run them without switching your core development checkout:
+These examples use **Ocura OSS 0.7.0**, and the catalog's package source matches
+the final release. Use a separate checkout for the scripts and install the
+released package from PyPI:
 
 ```console
 git clone --branch examples/0.7 --single-branch https://github.com/Protention/ocura-oss.git ocura-oss-examples
 cd ocura-oss-examples
-python -m pip install .
+git rev-parse HEAD
+python -m pip install ocura-oss==0.7.0
 ```
 
 Run the install in an activated virtual environment, then follow the selected
-guide. Install this branch's checkout or matching wheel; published 0.6.0 does not
-provide all the interfaces these examples use. The branch's CI checks its own
-package snapshot, not every later core change. Record the checked-out commit when
-retaining results you need to reproduce.
+guide. Install only its optional dependencies. CI checks the catalog's source and
+built distributions, plus the released PyPI package with PyTorch, JAX, and Dream
+CPU integrations. Live agent calls and optional Ray execution are not part of CI.
+Record the checked-out commit when retaining results you need to reproduce.
+
+The [0.6.0 autoregressive example snapshot](https://github.com/Protention/ocura-oss/tree/v0.6.0/examples/autoregressive)
+remains available for the previous release.
 
 | Workflow | What it demonstrates | Additional requirements |
 | --- | --- | --- |
