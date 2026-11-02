@@ -1,8 +1,8 @@
 export const site = {
   origin: (process.env.SITE_URL || 'https://protention.dev').replace(/\/$/, ''),
-  version: '0.7.0',
+  version: '0.7.1',
   repository: 'https://github.com/Protention/ocura-oss',
-  sourceRef: 'db15ec5548bc9e5c6aac778033e9fe0ba4ebd346',
+  sourceRef: '8d1b34c84f3e676a92b7e9e4edaffe0373b20c89',
 };
 
 export const pages = [

@@ -1,64 +1,64 @@
 {
-  "copiedFrom": "https://github.com/Protention/ocura-oss/tree/db15ec5548bc9e5c6aac778033e9fe0ba4ebd346",
-  "version": "0.7.0",
+  "copiedFrom": "https://github.com/Protention/ocura-oss/tree/8d1b34c84f3e676a92b7e9e4edaffe0373b20c89",
+  "version": "0.7.1",
   "packageRepository": "https://github.com/Protention/ocura-oss",
-  "packageSourceRef": "db15ec5548bc9e5c6aac778033e9fe0ba4ebd346",
+  "packageSourceRef": "8d1b34c84f3e676a92b7e9e4edaffe0373b20c89",
   "files": [
     {
       "file": "ocura-oss.md",
       "source": "docs/index.md",
-      "sha256": "40f134ce48cfd637b81bf16124ec5546cca919d17c6ca490b8d1eca81016ae83",
-      "originalSha256": "31967a64ba71e0c7111a46e67b27950a62351a91263a576362914eef67e6487a",
+      "sha256": "d42d09bdfd68ebfce47c2c9350a6c7407cf00d709e8e918f7ec6d429c37a2a77",
+      "originalSha256": "eeb969be64d9912e8b8d1824be756f0b1e55e92beaa4c2f2956ef3efd20d3a33",
       "adaptation": "Older release highlights moved to releases.md; a history link and legacy anchors were added."
     },
     {
       "file": "cli.md",
       "source": "docs/cli.md",
-      "sha256": "db24a254b8014cc6f06f7345e861aea5d9d91b4c506481de87b09c3a69025d84",
-      "originalSha256": "e9145d9ddfea2e392e545402374a7b4ab304f3f78b4e19a8aff6bbac5b15f303"
+      "sha256": "801310bd4cb6aba6b296053421b55fd4d2dec9f18364cd7d940bead05d97631c",
+      "originalSha256": "4dd63402145ebec87b998121458791f5e347c4ad151c51f938bd63c9e89883ca"
     },
     {
       "file": "api.md",
       "source": "docs/python-api.md",
-      "sha256": "14bd97a96c9813f375e1ff1dfdb0ce2cafe3874d8960db1fbfccaae53d86eb5e",
-      "originalSha256": "a978c5222c43f2914566e87c491b73a9a9192afaa509a04eeaeb4ebf42369538"
+      "sha256": "a3cb7c3e251f871ba51fcf9115d61799a03837aa5344c6f892a9003e3f5bfee4",
+      "originalSha256": "8e9e07f3b4d5dcbff933049c9d63d1a56713f509631e6ce39a1f8c970ef3f8d2"
     },
     {
       "file": "automation.md",
       "source": "docs/automation.md",
-      "sha256": "cf20e8dddf984b5a9bfe7f23a04119cdbb2a5e776c2f09f41c7a23b4240f536e",
-      "originalSha256": "437a9ea19b1667f7c3a9843ae651866ed9fab15b31a3c354ab25e4f9a0981bfd"
+      "sha256": "d8103bdeccf76534530171192194c3026427d178bed5ce44c630b47ab5df463f",
+      "originalSha256": "68f370a126a72ad817ade88c54a18a6824a252936edb4d39a8b5b5af76dc8ccd"
     },
     {
       "file": "examples.md",
       "source": "docs/use-cases.md",
-      "sha256": "1e17efea7c6d32c1645abb0b2fd17fd633c6ed1473b2dd207e9819b56efd1146",
-      "originalSha256": "a79a721441789c2db8250659cce7ba1e73487338c8f8b7e46b2ee49fad10a8fe",
-      "adaptation": "Catalog setup updated for the final 0.7.0 package and released-package CPU CI; the preserved 0.6.0 snapshot is linked. Core reference pages remain pinned to the release."
+      "sha256": "b959a65fddd92310032519d0397137bb0ed7efe1b9e3ece91142e4374522be41",
+      "originalSha256": "d137ed6991718e46b2eadd8ef42956da6dc865bed7dc6572f05eaffbff16f784",
+      "adaptation": "Catalog setup follows the 0.7.0 package that examples/0.7 installs and its released-package CPU CI; the preserved 0.6.0 snapshot is linked. Core reference pages remain pinned to the release."
     },
     {
       "file": "naming.md",
       "source": "docs/naming-migration.md",
-      "sha256": "e3bd8573d4f1ed80876d1b58df06adf277ad3a8460df3630438c8950b852e2fd",
-      "originalSha256": "7b18c748fc2bbc609e66bd851b42299f18f7c8a18953952197c874b9bea71d4c"
+      "sha256": "ba80ebb438b81a5e3c88cc72645e63122df93dc4d46fd6b22dbdac66bc3cb42f",
+      "originalSha256": "579dda5d805f22158a6a86c0816a25007bd2de4ad723bf2a0c28ca466d3c9bb4"
     },
     {
       "file": "compression.md",
       "source": "docs/autocompression.md",
-      "sha256": "1868297ecacdc45cee02f43b802aef52d4468bc18db5daa90b8574eaadc8e23a",
-      "originalSha256": "24e71bef1090be8b4fdac993de1e9560ce3f1802bc90e62dc97431fad7c5cf8e"
+      "sha256": "3e9685a373af8f4a7671b83605a8ab63d5eb310c7c6f4934c37c1243eb786de5",
+      "originalSha256": "a0576cdd7db1c37a58ea22ae86ef8c1e70c9ca6b11651699dedc71c6a545afd3"
     },
     {
       "file": "state.md",
       "source": "docs/state-and-verification.md",
-      "sha256": "14422981cfa6eeb8e19a4ef207b37f6943cb8dbfa8d0735371c46276b8158720",
-      "originalSha256": "46fc65a126b1dea3f02f68ae791d4e07c1f291e86c1855e738297d585185c6e4"
+      "sha256": "f3676f3a1a6c5951b5c25b08b2cba8cbbd3b2e50a8b18c176fd0e70a16af5926",
+      "originalSha256": "1c69d41172731e06e552539b038c91d4eb3801c8881d7ce2e75898048b05d4af"
     },
     {
       "file": "releases.md",
       "source": "docs/index.md",
       "sha256": "8025cf463849cc344c2bb799883c710b6f657892e8accf67f2ce16250d507164",
-      "originalSha256": "31967a64ba71e0c7111a46e67b27950a62351a91263a576362914eef67e6487a",
+      "originalSha256": "eeb969be64d9912e8b8d1824be756f0b1e55e92beaa4c2f2956ef3efd20d3a33",
       "adaptation": "New in 0.6.0 and New in 0.5.0 sections extracted unchanged from the adapted overview, with a title and link to the latest release."
     }
   ]

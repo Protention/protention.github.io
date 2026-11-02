@@ -1,6 +1,6 @@
 # Scripts and AI agents
 
-Version 0.7.0.
+Version 0.7.1.
 
 Discovery, descriptive Python names, bounded readers, `run --from`, and
 `--json-errors` are available in 0.7. See the
@@ -157,7 +157,7 @@ finish or `recover` closes them. A series of reads is not a transaction or a fro
 For a stable copy with no writers or unfinished attempts, pass `--archive` to read
 without creating ledger locks.
 
-The executable [history example](https://github.com/Protention/ocura-oss/blob/db15ec5548bc9e5c6aac778033e9fe0ba4ebd346/examples/history/README.md) implements this
+The executable [history example](https://github.com/Protention/ocura-oss/blob/8d1b34c84f3e676a92b7e9e4edaffe0373b20c89/examples/history/README.md) implements this
 workflow using public Python readers. It accepts only a root, lists all pathways
 and runs, preserves unfinished attempts, and returns exact byte references
 (`ledger_id`, `run_id`, stream, digest, offset, length). Those references survive
