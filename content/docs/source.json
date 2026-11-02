@@ -32,8 +32,9 @@
     {
       "file": "examples.md",
       "source": "docs/use-cases.md",
-      "sha256": "fb1a381061b1fd103aa0ba595ec4e6aebf004493c9c98fe349ad869cee52d2e4",
-      "originalSha256": "a79a721441789c2db8250659cce7ba1e73487338c8f8b7e46b2ee49fad10a8fe"
+      "sha256": "1e17efea7c6d32c1645abb0b2fd17fd633c6ed1473b2dd207e9819b56efd1146",
+      "originalSha256": "a79a721441789c2db8250659cce7ba1e73487338c8f8b7e46b2ee49fad10a8fe",
+      "adaptation": "Catalog setup updated for the final 0.7.0 package and released-package CPU CI; the preserved 0.6.0 snapshot is linked. Core reference pages remain pinned to the release."
     },
     {
       "file": "naming.md",
