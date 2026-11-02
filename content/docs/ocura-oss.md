@@ -1,6 +1,6 @@
 # Ocura OSS
 
-Version 0.7.0.
+Version 0.7.1.
 
 A local execution ledger for recording, branching, and comparing command runs.
 
@@ -15,10 +15,10 @@ provides JSON output throughout the workflow; the Python API returns typed resul
 ## New in 0.7.0
 
 Version 0.7 adds descriptive Python names, `runs` and `show` for history
-discovery, bounded verified log reads, and opt-in `--json-errors` for structured
-failures. It also adds `run --from ID --reason TEXT` to create and execute a
-variation in one call. The
-[history example](https://github.com/Protention/ocura-oss/blob/db15ec5548bc9e5c6aac778033e9fe0ba4ebd346/examples/history/README.md) starts with only a project root, retains failed
+discovery, bounded verified log reads, opt-in [log compression](https://protention.dev/compression/), and
+opt-in `--json-errors` for structured failures. It also adds
+`run --from ID --reason TEXT` to create and execute a variation in one call. The
+[history example](https://github.com/Protention/ocura-oss/blob/8d1b34c84f3e676a92b7e9e4edaffe0373b20c89/examples/history/README.md) starts with only a project root, retains failed
 retries and empty variations, and returns verified excerpts with stable references.
 The [naming guide](https://protention.dev/naming/) maps descriptive names to compatible legacy names
 and unchanged JSON fields. Existing ledgers and callers remain compatible.
@@ -109,6 +109,13 @@ the logs without streaming. A first Ctrl+C, or a `SIGTERM` sent to
 `ocura-oss run`, stops the command and records an interrupted attempt; a second
 Ctrl+C exits immediately and leaves the attempt for `ocura-oss recover` to close.
 
+Logs stay raw unless you ask for lossless gzip storage: `run --compress` stores
+that run's logs of at least 1 MiB as gzip when this saves at least 10%, and
+`compress --dry-run` previews a pass over older logs; `decompress` restores raw
+files. `ocura-oss logs <run-id>` prints the verified original bytes either way,
+and `--info` shows sizes, the storage path, and a readable fingerprint. Ocura OSS
+0.6 cannot read compressed logs; see [log compression](https://protention.dev/compression/).
+
 ## When to use something else
 
 Ocura OSS records what ran, how runs relate, and whether those records are still
@@ -128,16 +135,18 @@ adopt than a tracking platform.
 
 ## Primary example: record and inspect
 
-From this checkout, after `python -m pip install .`, create a small demonstration
-and inspect its retained history:
+The inspection script lives in the repository and is not installed with the package.
+With Ocura OSS installed, clone the repository, create a small demonstration, and
+inspect its retained history:
 
 ```console
+git clone https://github.com/Protention/ocura-oss.git
 ocura-oss demo --root ./ocura-oss-demo
-python examples/history/inspect_history.py --root ./ocura-oss-demo --archive
+python ocura-oss/examples/history/inspect_history.py --root ./ocura-oss-demo --archive
 ```
 
 Use a new destination for the demo; if it already exists from an earlier run,
-run only the inspection command. The [history guide](https://github.com/Protention/ocura-oss/blob/db15ec5548bc9e5c6aac778033e9fe0ba4ebd346/examples/history/README.md)
+skip that command. The [history guide](https://github.com/Protention/ocura-oss/blob/8d1b34c84f3e676a92b7e9e4edaffe0373b20c89/examples/history/README.md)
 explains the JSON report and how to inspect your own ledger. No optional dependencies
 are needed.
 
@@ -173,11 +182,12 @@ exit codes, parameter labels, and how to inspect earlier attempts.
 - [CLI reference](https://protention.dev/cli/): every command, JSON fields, and exit codes
 - [Python API](https://protention.dev/api/): functions, typed results, and `Store`
 - [State and verification](https://protention.dev/state/): records and checks
+- [Log compression](https://protention.dev/compression/): opt-in gzip storage, verified reading, fingerprints, and compatibility
 - [Examples](https://protention.dev/examples/): the primary walkthrough and demonstrations on `examples/0.7`
-- [Migration tool](https://github.com/Protention/ocura-oss/blob/db15ec5548bc9e5c6aac778033e9fe0ba4ebd346/tools/migrations/README.md): optional import of 0.4 ledgers, downloaded separately
+- [Migration tool](https://github.com/Protention/ocura-oss/blob/8d1b34c84f3e676a92b7e9e4edaffe0373b20c89/tools/migrations/README.md): optional import of 0.4 ledgers, downloaded separately
 
-Repository references describe this checkout and remain readable directly on GitHub.
-The documentation for the published release is also [available online](https://protention.dev/).
+The documentation for the published release is at [protention.dev](https://protention.dev/).
+The repository's `docs/` directory follows `main`.
 
 ## Local state and operating model
 
@@ -204,12 +214,12 @@ authenticate authorship or prevent a writer from replacing records and checksums
 
 ## Project status
 
-Ocura OSS is research software under the [Apache License 2.0](https://github.com/Protention/ocura-oss/blob/db15ec5548bc9e5c6aac778033e9fe0ba4ebd346/LICENSE).
+Ocura OSS is research software under the [Apache License 2.0](https://github.com/Protention/ocura-oss/blob/8d1b34c84f3e676a92b7e9e4edaffe0373b20c89/LICENSE).
 Versions 0.5.0 and earlier were released under MPL-2.0. The 0.x interface and record
 format may change before 1.0, and there is no production support commitment.
 
-Bug reports and focused pull requests are welcome. See [Contributing](https://github.com/Protention/ocura-oss/blob/db15ec5548bc9e5c6aac778033e9fe0ba4ebd346/CONTRIBUTING.md)
-and the [security policy](https://github.com/Protention/ocura-oss/blob/db15ec5548bc9e5c6aac778033e9fe0ba4ebd346/SECURITY.md).
+Bug reports and focused pull requests are welcome. See [Contributing](https://github.com/Protention/ocura-oss/blob/8d1b34c84f3e676a92b7e9e4edaffe0373b20c89/CONTRIBUTING.md)
+and the [security policy](https://github.com/Protention/ocura-oss/blob/8d1b34c84f3e676a92b7e9e4edaffe0373b20c89/SECURITY.md).
 
 ## Command help
 

@@ -1,6 +1,6 @@
 # Python API reference
 
-Version 0.7.0.
+Version 0.7.1.
 
 Version 0.7 adds opt-in compression, storage metadata, and conversion
 methods. See [log compression](https://protention.dev/compression/).
@@ -549,7 +549,7 @@ Equal aliases are accepted; conflicting aliases raise `StoreError` with code
 `invalid_input`. `Store.resolve_id()` accepts kinds `run` and `branch_point`,
 returning unchanged `atom-...` and `chokepoint-...` IDs.
 
-The [history example](https://github.com/Protention/ocura-oss/blob/db15ec5548bc9e5c6aac778033e9fe0ba4ebd346/examples/history/README.md) demonstrates a fresh caller
+The [history example](https://github.com/Protention/ocura-oss/blob/8d1b34c84f3e676a92b7e9e4edaffe0373b20c89/examples/history/README.md) demonstrates a fresh caller
 discovering every observed attempt and reading bounded, verified excerpts from an
 existing root. It leaves report composition and interpretation with the caller.
 
