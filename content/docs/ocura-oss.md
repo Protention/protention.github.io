@@ -1,6 +1,6 @@
 # Ocura OSS
 
-Version 0.7.1.
+Version 0.7.2.
 
 A local execution ledger for recording, branching, and comparing command runs.
 
@@ -18,7 +18,7 @@ Version 0.7 adds descriptive Python names, `runs` and `show` for history
 discovery, bounded verified log reads, opt-in [log compression](https://protention.dev/compression/), and
 opt-in `--json-errors` for structured failures. It also adds
 `run --from ID --reason TEXT` to create and execute a variation in one call. The
-[history example](https://github.com/Protention/ocura-oss/blob/8d1b34c84f3e676a92b7e9e4edaffe0373b20c89/examples/history/README.md) starts with only a project root, retains failed
+[history example](https://github.com/Protention/ocura-oss/blob/605f051f15a63b41dee48a7f61898034fc20330e/examples/history/README.md) starts with only a project root, retains failed
 retries and empty variations, and returns verified excerpts with stable references.
 The [naming guide](https://protention.dev/naming/) maps descriptive names to compatible legacy names
 and unchanged JSON fields. Existing ledgers and callers remain compatible.
@@ -146,7 +146,7 @@ python ocura-oss/examples/history/inspect_history.py --root ./ocura-oss-demo --a
 ```
 
 Use a new destination for the demo; if it already exists from an earlier run,
-skip that command. The [history guide](https://github.com/Protention/ocura-oss/blob/8d1b34c84f3e676a92b7e9e4edaffe0373b20c89/examples/history/README.md)
+skip that command. The [history guide](https://github.com/Protention/ocura-oss/blob/605f051f15a63b41dee48a7f61898034fc20330e/examples/history/README.md)
 explains the JSON report and how to inspect your own ledger. No optional dependencies
 are needed.
 
@@ -184,7 +184,7 @@ exit codes, parameter labels, and how to inspect earlier attempts.
 - [State and verification](https://protention.dev/state/): records and checks
 - [Log compression](https://protention.dev/compression/): opt-in gzip storage, verified reading, fingerprints, and compatibility
 - [Examples](https://protention.dev/examples/): the primary walkthrough and demonstrations on `examples/0.7`
-- [Migration tool](https://github.com/Protention/ocura-oss/blob/8d1b34c84f3e676a92b7e9e4edaffe0373b20c89/tools/migrations/README.md): optional import of 0.4 ledgers, downloaded separately
+- [Migration tool](https://github.com/Protention/ocura-oss/blob/605f051f15a63b41dee48a7f61898034fc20330e/tools/migrations/README.md): optional import of 0.4 ledgers, downloaded separately
 
 The documentation for the published release is at [protention.dev](https://protention.dev/).
 The repository's `docs/` directory follows `main`.
@@ -214,12 +214,12 @@ authenticate authorship or prevent a writer from replacing records and checksums
 
 ## Project status
 
-Ocura OSS is research software under the [Apache License 2.0](https://github.com/Protention/ocura-oss/blob/8d1b34c84f3e676a92b7e9e4edaffe0373b20c89/LICENSE).
+Ocura OSS is research software under the [Apache License 2.0](https://github.com/Protention/ocura-oss/blob/605f051f15a63b41dee48a7f61898034fc20330e/LICENSE).
 Versions 0.5.0 and earlier were released under MPL-2.0. The 0.x interface and record
 format may change before 1.0, and there is no production support commitment.
 
-Bug reports and focused pull requests are welcome. See [Contributing](https://github.com/Protention/ocura-oss/blob/8d1b34c84f3e676a92b7e9e4edaffe0373b20c89/CONTRIBUTING.md)
-and the [security policy](https://github.com/Protention/ocura-oss/blob/8d1b34c84f3e676a92b7e9e4edaffe0373b20c89/SECURITY.md).
+Bug reports and focused pull requests are welcome. See [Contributing](https://github.com/Protention/ocura-oss/blob/605f051f15a63b41dee48a7f61898034fc20330e/CONTRIBUTING.md)
+and the [security policy](https://github.com/Protention/ocura-oss/blob/605f051f15a63b41dee48a7f61898034fc20330e/SECURITY.md).
 
 ## Command help
 

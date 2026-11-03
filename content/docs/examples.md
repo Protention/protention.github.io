@@ -1,6 +1,6 @@
 # Choose an example
 
-Version 0.7.1.
+Version 0.7.2.
 
 The core repository keeps one primary example: record a small demonstration, then
 inspect its retained history. The fuller demonstrations live together on the
@@ -19,7 +19,7 @@ ocura-oss demo --root ./ocura-oss-demo
 python ocura-oss/examples/history/inspect_history.py --root ./ocura-oss-demo --archive
 ```
 
-The demo destination must be new. If you already ran it, skip that command. The [history guide](https://github.com/Protention/ocura-oss/blob/8d1b34c84f3e676a92b7e9e4edaffe0373b20c89/examples/history/README.md) explains the report and
+The demo destination must be new. If you already ran it, skip that command. The [history guide](https://github.com/Protention/ocura-oss/blob/605f051f15a63b41dee48a7f61898034fc20330e/examples/history/README.md) explains the report and
 how to inspect your own ledger. No optional dependencies are needed.
 
 ## Fuller demonstrations
