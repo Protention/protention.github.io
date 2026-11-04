@@ -15,7 +15,7 @@
   grid-template-areas: "sidebar main";
   align-items: start;
   gap: clamp(28px, 4vw, 64px);
-  padding: 28px 0 80px;
+  padding: 24px 0 0;
 }
 
 .docs-sidebar {
@@ -187,6 +187,8 @@
   grid-area: main;
   min-width: 0;
   max-width: 58rem;
+  /* Keep reading space inside the grid row so the sticky sidebar stays put at the page end. */
+  padding-bottom: 80px;
   font-size: var(--docs-font-size, 16px);
   line-height: 1.6;
 }
