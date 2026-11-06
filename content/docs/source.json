@@ -1,65 +1,66 @@
 {
-  "copiedFrom": "https://github.com/Protention/ocura-oss/tree/605f051f15a63b41dee48a7f61898034fc20330e",
-  "version": "0.7.2",
+  "copiedFrom": "https://github.com/Protention/ocura-oss/tree/5c057e7648acb327922dfffdabf7e59c50a1086b",
+  "version": "0.8.0",
   "packageRepository": "https://github.com/Protention/ocura-oss",
-  "packageSourceRef": "605f051f15a63b41dee48a7f61898034fc20330e",
+  "packageSourceRef": "5c057e7648acb327922dfffdabf7e59c50a1086b",
   "files": [
+    {
+      "file": "releases.md",
+      "source": "docs/index.md",
+      "sha256": "1b74afdfa6da7c591fff93ca33d22eab45268f405be750542cafa6a21c2dcaef",
+      "originalSha256": "8a18b8965f54e449275d73526c23a435be5b44520d2d329cec513fde022ac00b",
+      "adaptation": "The 0.7 highlight paragraph and New in 0.6.0/0.5.0 sections moved from the adapted overview, with a title and link to the current release. The 0.7 introduction uses past tense."
+    },
     {
       "file": "ocura-oss.md",
       "source": "docs/index.md",
-      "sha256": "85a26f16c1474063e7dd61cc4a55f855ee456641caabef99943affad11c0851e",
-      "originalSha256": "f78ea6806931a25b62651414375d6316733f8e67709732e7d32de830a739df1b",
-      "adaptation": "Older release highlights moved to releases.md; a history link and legacy anchors were added."
+      "sha256": "a3098a5c133580c9bb5f2df975f492a429392a17031d8c116cab86f4bec924db",
+      "originalSha256": "8a18b8965f54e449275d73526c23a435be5b44520d2d329cec513fde022ac00b",
+      "adaptation": "Older release highlights moved to releases.md; a history link and legacy anchors were added. Only New in 0.8.0 remains in the overview."
     },
     {
       "file": "cli.md",
       "source": "docs/cli.md",
-      "sha256": "9f52df50970d77a3b11e7e3ff2b7f9f03ad29bf61d18a9b34a8ff96a5fd988e3",
-      "originalSha256": "cfc5040f5128789564dbe6ebda61aa209171fdd3aa9dd31ab914a448db9fcb1c"
+      "sha256": "00fe9b26d36815879f650ad71d4228f9845ad2bab28fa2354acf20ed20252542",
+      "originalSha256": "1ad740f377fa1cb406952c36ef12ee7c832c1ba62ebc09f5e7b3c1a175c6436d",
+      "adaptation": "The legacy chokepoints inbound anchor leads to branch-points; the removed command is not advertised as supported."
     },
     {
       "file": "api.md",
       "source": "docs/python-api.md",
-      "sha256": "195bf683f2b98246076443b788714c176ad13953c4649e021d3bd1f4862e8ad8",
-      "originalSha256": "a124975448ec9b37b62e942c446525253b7060cbe0f5a4ac9076ea57985c8b4e"
+      "sha256": "ff8e987b6bf37de8e035481a009478cf8c186a238f2477370825e1f7da6c83ad",
+      "originalSha256": "a4e5d921792aa3911664f176e864e0428a7a4a81224460459b7106983d9f35e4",
+      "adaptation": "Legacy inbound type anchors lead to the current type sections; this preserves links, not removed API aliases."
     },
     {
       "file": "automation.md",
       "source": "docs/automation.md",
-      "sha256": "e093e66e200f56575f40ea0b2d89de7c588b5bcbb5d849f90766674baa0aadbf",
-      "originalSha256": "e2d13c0d4e7fd6b64402bac9dd02396a3bb40a43ec4b501e32929ef2ae555247"
+      "sha256": "14a90b59739b33f4cf00bf8841a88c5aafaab8e6925328f59da4587914fe169c",
+      "originalSha256": "240e580c64264491800d712ecbb0a2f4d6325bedd524e6a0eefde826d70bcb47"
     },
     {
       "file": "examples.md",
       "source": "docs/use-cases.md",
-      "sha256": "b059c3d64260f73298cb3f813cb42b3891268a93d0cbfc874b522fb5bce45bf1",
-      "originalSha256": "d9327dc18e5e34692c3a80d5567eab1ff0745ffbf6978c02009243283b63e497",
-      "adaptation": "Catalog setup follows the 0.7.0 package that examples/0.7 installs and its released-package CPU CI; the preserved 0.6.0 snapshot is linked. Core reference pages remain pinned to the release."
+      "sha256": "7e7fed611bbf76724e2893534e0e01195e4ae3d16e6ad9cdf0d476662b83397f",
+      "originalSha256": "f10d7266be4e7e4bcaf5f568b5f7b52931c1ffffbcbb51b06e373cf59b8b37e4"
     },
     {
       "file": "naming.md",
       "source": "docs/naming-migration.md",
-      "sha256": "0d806b9c5943954b591c8ef4d29c2cb8d764f0f8215ca0ef1e0e77a685693ddc",
-      "originalSha256": "7bd1c52d5693b500eb08dc7c740de44daa9ae2dab91cd2d8b4a128ba43868f41"
+      "sha256": "c33fe174307fae17569fa0a12b7a3f47b248bdd8703effd8adedd5ac08a64050",
+      "originalSha256": "8cafcd728adf5f0cfa6a8d5d996ec471d5cea2beaf2167c41566110b8ec0d2ce"
     },
     {
       "file": "compression.md",
       "source": "docs/autocompression.md",
-      "sha256": "df3bc7f49c130d70e8a2b5d9d17c9e108036424dd0e7521724b709b19bb88ae1",
-      "originalSha256": "f82614df019a9404504c12a045676e1e03efe0925e00f53035d9f3b4caefdb3e"
+      "sha256": "4efbcf08863e736cb70ff0c28887ae8d387ac4b6100da4357e7ba0a50ffb5513",
+      "originalSha256": "55d0462cfc55356772cfab25a84059adcac4d8f6938c70c62fbce02be34db820"
     },
     {
       "file": "state.md",
       "source": "docs/state-and-verification.md",
-      "sha256": "74acb465f3e654ba372de8a444e23ece37ad8910fad140817bb99c7b94c18811",
-      "originalSha256": "043f6e48061bfcaa99feaaea8fc2c012a4b74b17e5dd9fe9f95402af992ed40f"
-    },
-    {
-      "file": "releases.md",
-      "source": "docs/index.md",
-      "sha256": "8025cf463849cc344c2bb799883c710b6f657892e8accf67f2ce16250d507164",
-      "originalSha256": "f78ea6806931a25b62651414375d6316733f8e67709732e7d32de830a739df1b",
-      "adaptation": "New in 0.6.0 and New in 0.5.0 sections extracted unchanged from the adapted overview, with a title and link to the latest release."
+      "sha256": "606a4f8c07a916bbbc7cf8b32f8a33e9797dad7debafb1507847462a188c8a3a",
+      "originalSha256": "4b9ba600637a79bb8d8b4f7ea2113834d2fb45afb553ee0470e6f8715510e9e5"
     }
   ]
 }

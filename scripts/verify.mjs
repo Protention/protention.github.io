@@ -64,8 +64,12 @@ for (const id of ['ocura_ossden', 'ocura-oss-den', 'ocura_ossatom', 'ocura-oss-a
   assert(documents.get('/api/').ids.has(id), `Legacy API anchor: ${id}`);
 }
 assert(documents.get('/cli/').ids.has('chokepoints'), 'Legacy CLI anchor');
+for (const id of ['record-types-ocura-oss-ledger', 'record-types-ocura-oss-runrecord', 'record-types-ocura-oss-branchpoint']) {
+  assert(documents.get('/api/').ids.has(id), `Current API anchor: ${id}`);
+}
+assert(documents.get('/cli/').ids.has('branch-points'), 'Current CLI anchor');
 assert(documents.get('/examples/').html.includes('href="https://github.com/Protention/ocura-oss/tree/v0.6.0/examples/autoregressive"'), 'Previous-release example archive');
 assert(!documents.get('/api/').html.includes('&lt;a id='), 'Anchor markup is not displayed as prose');
-assert(stateReference.includes('0.4 or earlier') && stateReference.includes('exit status 2'), 'Upgrade reference');
+assert(stateReference.includes('0.4 and earlier') && stateReference.includes('0.5 to 0.7') && stateReference.includes('exit status 2'), 'Upgrade reference');
 assert(overview.includes(`${site.repository}/blob/${site.sourceRef}/tools/migrations/README.md`), 'Pinned standalone migration guide');
 console.log(`Verified all ${pages.length} copied docs: complete existing content, exact Markdown exports, ${links} internal links, anchors, clean URLs, legacy routes, source pins, and palette.`);
