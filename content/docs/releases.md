@@ -1,7 +1,16 @@
 # Release history
 
-Highlights from earlier releases. See [New in 0.7.0](https://protention.dev/#new-in-0-7-0)
+Highlights from earlier releases. See [New in 0.8.0](https://protention.dev/#new-in-0-8-0)
 for the latest release.
+
+## New in 0.7.0
+
+Version 0.7 added `runs` and `show` for history
+discovery, bounded verified log reads, opt-in [log compression](https://protention.dev/compression/), and
+opt-in `--json-errors` for structured failures. It also added
+`run --from ID --reason TEXT` to create and execute a variation in one call. The
+[history example](https://github.com/Protention/ocura-oss/blob/5c057e7648acb327922dfffdabf7e59c50a1086b/examples/history/README.md) starts with only a project root, retains failed
+retries and empty variations, and returns verified excerpts with stable references.
 
 ## New in 0.6.0
 
