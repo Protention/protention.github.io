@@ -1,66 +1,66 @@
 {
-  "copiedFrom": "https://github.com/Protention/ocura-oss/tree/5c057e7648acb327922dfffdabf7e59c50a1086b",
-  "version": "0.8.0",
+  "copiedFrom": "https://github.com/Protention/ocura-oss/tree/68dc7beb9d4f543e421172f50288306cbeb4b73b",
+  "version": "0.9.0",
   "packageRepository": "https://github.com/Protention/ocura-oss",
-  "packageSourceRef": "5c057e7648acb327922dfffdabf7e59c50a1086b",
+  "packageSourceRef": "68dc7beb9d4f543e421172f50288306cbeb4b73b",
   "files": [
     {
       "file": "releases.md",
       "source": "docs/index.md",
-      "sha256": "1b74afdfa6da7c591fff93ca33d22eab45268f405be750542cafa6a21c2dcaef",
-      "originalSha256": "8a18b8965f54e449275d73526c23a435be5b44520d2d329cec513fde022ac00b",
-      "adaptation": "The 0.7 highlight paragraph and New in 0.6.0/0.5.0 sections moved from the adapted overview, with a title and link to the current release. The 0.7 introduction uses past tense."
+      "sha256": "2e9a6d7d4e67c8addc02274c4b6e900e05ddd7aae24d9178e9efaf7baca5be14",
+      "originalSha256": "50480a43dfc5f4f7778cf2d72674c0e711d1dee62c5391e3ebe33dbfd6b24a91",
+      "adaptation": "The 0.8 and 0.7 highlight paragraphs and New in 0.6.0/0.5.0 sections moved from the adapted overview, with a title and link to the current release. The 0.8 and 0.7 introductions use past tense."
     },
     {
       "file": "ocura-oss.md",
       "source": "docs/index.md",
-      "sha256": "a3098a5c133580c9bb5f2df975f492a429392a17031d8c116cab86f4bec924db",
-      "originalSha256": "8a18b8965f54e449275d73526c23a435be5b44520d2d329cec513fde022ac00b",
-      "adaptation": "Older release highlights moved to releases.md; a history link and legacy anchors were added. Only New in 0.8.0 remains in the overview."
+      "sha256": "0382d0e10af165638220d6de14da4bc11973066adb2568388499271b6f986ade",
+      "originalSha256": "50480a43dfc5f4f7778cf2d72674c0e711d1dee62c5391e3ebe33dbfd6b24a91",
+      "adaptation": "Older release highlights moved to releases.md; a history link and legacy anchors were added. Only New in 0.9.0 remains in the overview."
     },
     {
       "file": "cli.md",
       "source": "docs/cli.md",
-      "sha256": "00fe9b26d36815879f650ad71d4228f9845ad2bab28fa2354acf20ed20252542",
-      "originalSha256": "1ad740f377fa1cb406952c36ef12ee7c832c1ba62ebc09f5e7b3c1a175c6436d",
+      "sha256": "02d042a614feb13bebfc02a3d439c4c66b6ffb6f42ce30ddf10ad7c3cb17e8b3",
+      "originalSha256": "0fc445d1f27a9a262b679e00b7263db61848d1c96d2733d2cfa488152a7ce9ca",
       "adaptation": "The legacy chokepoints inbound anchor leads to branch-points; the removed command is not advertised as supported."
     },
     {
       "file": "api.md",
       "source": "docs/python-api.md",
-      "sha256": "ff8e987b6bf37de8e035481a009478cf8c186a238f2477370825e1f7da6c83ad",
-      "originalSha256": "a4e5d921792aa3911664f176e864e0428a7a4a81224460459b7106983d9f35e4",
+      "sha256": "5818356213d30cb4fce90ea2acc49b2a43e8ff8ef9af4a3d977b50f92e75cadb",
+      "originalSha256": "05250354c95fdc3c01c4067bf2c7f1e96a0deb1024332d0692e2b4c67b0912a9",
       "adaptation": "Legacy inbound type anchors lead to the current type sections; this preserves links, not removed API aliases."
     },
     {
       "file": "automation.md",
       "source": "docs/automation.md",
-      "sha256": "14a90b59739b33f4cf00bf8841a88c5aafaab8e6925328f59da4587914fe169c",
-      "originalSha256": "240e580c64264491800d712ecbb0a2f4d6325bedd524e6a0eefde826d70bcb47"
+      "sha256": "c15c828807824761a6d832472f816cad803e3745a9f4ba163b5009f4124184f8",
+      "originalSha256": "2bf68c7560c3d5033de4c99eb097821b6da0310661e22e4b6d84bf0f153aacf5"
     },
     {
       "file": "examples.md",
       "source": "docs/use-cases.md",
-      "sha256": "7e7fed611bbf76724e2893534e0e01195e4ae3d16e6ad9cdf0d476662b83397f",
-      "originalSha256": "f10d7266be4e7e4bcaf5f568b5f7b52931c1ffffbcbb51b06e373cf59b8b37e4"
+      "sha256": "cadf6770a8645273f1f54cf52968686e9e0771c222ced1902a13147caa53daef",
+      "originalSha256": "5c5d2dda9808df32a92de3de885fde7c6111b656ae5b7e3ba4b1df70b8d3cffe"
     },
     {
       "file": "naming.md",
       "source": "docs/naming-migration.md",
-      "sha256": "c33fe174307fae17569fa0a12b7a3f47b248bdd8703effd8adedd5ac08a64050",
-      "originalSha256": "8cafcd728adf5f0cfa6a8d5d996ec471d5cea2beaf2167c41566110b8ec0d2ce"
+      "sha256": "574134c5166b3453d8d0a913bc315e19120201eadc201b450b3b594872e5e902",
+      "originalSha256": "a56f9b3eba4884f3a15c453ec50b4232a82771181a99aa2a4511a8401be3061c"
     },
     {
       "file": "compression.md",
       "source": "docs/autocompression.md",
-      "sha256": "4efbcf08863e736cb70ff0c28887ae8d387ac4b6100da4357e7ba0a50ffb5513",
-      "originalSha256": "55d0462cfc55356772cfab25a84059adcac4d8f6938c70c62fbce02be34db820"
+      "sha256": "2aedb97527a7fabb984a1b05a8c858371043b5378ca372acbda3adaf60fdee49",
+      "originalSha256": "fd5e744dee73bdc46c7a1cb1a62205b45ac186fe121f225d0e108b960670ac56"
     },
     {
       "file": "state.md",
       "source": "docs/state-and-verification.md",
-      "sha256": "606a4f8c07a916bbbc7cf8b32f8a33e9797dad7debafb1507847462a188c8a3a",
-      "originalSha256": "4b9ba600637a79bb8d8b4f7ea2113834d2fb45afb553ee0470e6f8715510e9e5"
+      "sha256": "90ab79b97718c9216bb56f54e69f2757a503f174ca0c327d457de56615c49648",
+      "originalSha256": "d8925e8359b85214a449e80a47463f5992679cb5f31b848b56d506a18ebceae7"
     }
   ]
 }
