@@ -18,7 +18,7 @@ ocura-oss demo --root ./ocura-oss-demo
 python examples/history/inspect_history.py --root ./ocura-oss-demo --archive
 ```
 
-The demo destination must be new. If you already ran it, skip that command. The [history guide](https://github.com/Protention/ocura-oss/blob/5828a5571c17e01f0edb0576471d0a95f69f96ea/examples/history/README.md) explains the report and
+The demo destination must be new. If you already ran it, skip that command. The [history guide](https://github.com/Protention/ocura-oss/blob/68dc7beb9d4f543e421172f50288306cbeb4b73b/examples/history/README.md) explains the report and
 how to inspect your own ledger. No optional dependencies are needed.
 
 ## Fuller demonstrations

@@ -168,7 +168,7 @@ finish or `recover` closes them. A series of reads is not a transaction or a fro
 For a stable copy with no writers or unfinished attempts, pass `--archive` to read
 without creating ledger locks.
 
-The executable [history example](https://github.com/Protention/ocura-oss/blob/5828a5571c17e01f0edb0576471d0a95f69f96ea/examples/history/README.md) implements this
+The executable [history example](https://github.com/Protention/ocura-oss/blob/68dc7beb9d4f543e421172f50288306cbeb4b73b/examples/history/README.md) implements this
 workflow using public Python readers. It accepts only a root, lists all pathways
 and runs, preserves unfinished attempts, and returns exact byte references
 (`ledger_id`, `run_id`, stream, digest, offset, length). Those references survive

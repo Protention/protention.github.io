@@ -1,21 +1,21 @@
 {
-  "copiedFrom": "https://github.com/Protention/ocura-oss/tree/5828a5571c17e01f0edb0576471d0a95f69f96ea",
+  "copiedFrom": "https://github.com/Protention/ocura-oss/tree/68dc7beb9d4f543e421172f50288306cbeb4b73b",
   "version": "0.9.0",
   "packageRepository": "https://github.com/Protention/ocura-oss",
-  "packageSourceRef": "5828a5571c17e01f0edb0576471d0a95f69f96ea",
+  "packageSourceRef": "68dc7beb9d4f543e421172f50288306cbeb4b73b",
   "files": [
     {
       "file": "releases.md",
       "source": "docs/index.md",
-      "sha256": "1c65851de6b4d6c9e50706936de12f3b777fd2af807f1452d35b3af28e3f8d23",
-      "originalSha256": "df95ddf543d75d10ea369e22c39453b79b330f1ab117f48d2453a906fa0396a2",
+      "sha256": "2e9a6d7d4e67c8addc02274c4b6e900e05ddd7aae24d9178e9efaf7baca5be14",
+      "originalSha256": "50480a43dfc5f4f7778cf2d72674c0e711d1dee62c5391e3ebe33dbfd6b24a91",
       "adaptation": "The 0.8 and 0.7 highlight paragraphs and New in 0.6.0/0.5.0 sections moved from the adapted overview, with a title and link to the current release. The 0.8 and 0.7 introductions use past tense."
     },
     {
       "file": "ocura-oss.md",
       "source": "docs/index.md",
-      "sha256": "6e6ddfcd2525713b53ba50a18f3b31e87fbfc00928d6129c55129229b484d2e4",
-      "originalSha256": "df95ddf543d75d10ea369e22c39453b79b330f1ab117f48d2453a906fa0396a2",
+      "sha256": "0382d0e10af165638220d6de14da4bc11973066adb2568388499271b6f986ade",
+      "originalSha256": "50480a43dfc5f4f7778cf2d72674c0e711d1dee62c5391e3ebe33dbfd6b24a91",
       "adaptation": "Older release highlights moved to releases.md; a history link and legacy anchors were added. Only New in 0.9.0 remains in the overview."
     },
     {
@@ -28,20 +28,20 @@
     {
       "file": "api.md",
       "source": "docs/python-api.md",
-      "sha256": "5dd87786b0561240354b8372b9ad0b1f0c66d2b1c34736b04bef0958259cc4c0",
+      "sha256": "5818356213d30cb4fce90ea2acc49b2a43e8ff8ef9af4a3d977b50f92e75cadb",
       "originalSha256": "05250354c95fdc3c01c4067bf2c7f1e96a0deb1024332d0692e2b4c67b0912a9",
       "adaptation": "Legacy inbound type anchors lead to the current type sections; this preserves links, not removed API aliases."
     },
     {
       "file": "automation.md",
       "source": "docs/automation.md",
-      "sha256": "d3e1fdb009b3c8bd22f75028931118e61462883562bae7448f5c0ebf0602a5f2",
+      "sha256": "c15c828807824761a6d832472f816cad803e3745a9f4ba163b5009f4124184f8",
       "originalSha256": "2bf68c7560c3d5033de4c99eb097821b6da0310661e22e4b6d84bf0f153aacf5"
     },
     {
       "file": "examples.md",
       "source": "docs/use-cases.md",
-      "sha256": "85f015e347d1adc346735ea0c60973e7b44a578fb33d9c2834c235c508c36088",
+      "sha256": "cadf6770a8645273f1f54cf52968686e9e0771c222ced1902a13147caa53daef",
       "originalSha256": "5c5d2dda9808df32a92de3de885fde7c6111b656ae5b7e3ba4b1df70b8d3cffe"
     },
     {
@@ -59,7 +59,7 @@
     {
       "file": "state.md",
       "source": "docs/state-and-verification.md",
-      "sha256": "8f4d2c01cb9d9f52c1e6342070426207fb008c75f77411e618095e581b315f15",
+      "sha256": "90ab79b97718c9216bb56f54e69f2757a503f174ca0c327d457de56615c49648",
       "originalSha256": "d8925e8359b85214a449e80a47463f5992679cb5f31b848b56d506a18ebceae7"
     }
   ]

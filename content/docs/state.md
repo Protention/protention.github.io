@@ -237,7 +237,7 @@ State from 0.4 and earlier gets the same message with schema version 1 and `"ocu
 
 A new state directory starts empty. Identifiers from the old one are unknown to it, so a branch cannot name an old branch point as its source: record the baseline again before branching from it. If you need comparisons or listings from the old records later, save them with the old version first, for example `ocura-oss compare --json --from ID` and `ocura-oss branch-points --json`.
 
-The optional [repository-only migration script](https://github.com/Protention/ocura-oss/blob/5828a5571c17e01f0edb0576471d0a95f69f96ea/tools/migrations/README.md) converts complete 0.4 state to schema 2, for use with 0.5 to 0.7. There is no conversion to schema 3.
+The optional [repository-only migration script](https://github.com/Protention/ocura-oss/blob/68dc7beb9d4f543e421172f50288306cbeb4b73b/tools/migrations/README.md) converts complete 0.4 state to schema 2, for use with 0.5 to 0.7. There is no conversion to schema 3.
 
 ## Record relationships
 

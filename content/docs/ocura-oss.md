@@ -22,6 +22,14 @@ damage. `run` shows output as the command writes it, and
 `ocura-oss settings compress=on` compresses large logs for every run in a project.
 See [ledgers written by 0.8](https://protention.dev/state/#format-compatibility-ledgers-written-by-0-8).
 
+[`ocura-oss mcp`](https://protention.dev/cli/#mcp) is a Model Context Protocol server: an agent
+client reads the ledger through it and can keep a run's note and tags, but cannot
+record or change a run. [`note` and `tag`](https://protention.dev/cli/#note-and-tag) keep editable
+text and tags beside a finished run, and `runs --tag` lists the runs carrying a tag.
+`runs` and `show` keep an [index](https://protention.dev/state/#directory-layout-the-index) at
+`.ocura-oss/index.sqlite`, so they open only the records they return. None of these
+adds a dependency.
+
 <a id="new-in-0-8-0"></a>
 <a id="new-in-0-7-0"></a>
 <a id="new-in-0-6-0"></a>
@@ -161,7 +169,7 @@ python ocura-oss/examples/history/inspect_history.py --root ./ocura-oss-demo --a
 ```
 
 Use a new destination for the demo; if it already exists from an earlier run,
-skip that command. The [history guide](https://github.com/Protention/ocura-oss/blob/5828a5571c17e01f0edb0576471d0a95f69f96ea/examples/history/README.md)
+skip that command. The [history guide](https://github.com/Protention/ocura-oss/blob/68dc7beb9d4f543e421172f50288306cbeb4b73b/examples/history/README.md)
 explains the JSON report and how to inspect your own ledger. No optional dependencies
 are needed.
 
@@ -199,7 +207,7 @@ exit codes, parameter labels, and how to inspect earlier attempts.
 - [State and verification](https://protention.dev/state/): records and checks
 - [Log compression](https://protention.dev/compression/): opt-in gzip storage, verified reading, fingerprints, and compatibility
 - [Examples](https://protention.dev/examples/): the primary walkthrough and demonstrations on `examples/0.9`
-- [Migration tool](https://github.com/Protention/ocura-oss/blob/5828a5571c17e01f0edb0576471d0a95f69f96ea/tools/migrations/README.md): optional import of 0.4 ledgers, downloaded separately
+- [Migration tool](https://github.com/Protention/ocura-oss/blob/68dc7beb9d4f543e421172f50288306cbeb4b73b/tools/migrations/README.md): optional import of 0.4 ledgers, downloaded separately
 
 The documentation for the published release is at [protention.dev](https://protention.dev/).
 The repository's `docs/` directory follows `main`.
@@ -228,12 +236,12 @@ authenticate authorship or prevent a writer from replacing records and checksums
 
 ## Project status
 
-Ocura OSS is research software under the [Apache License 2.0](https://github.com/Protention/ocura-oss/blob/5828a5571c17e01f0edb0576471d0a95f69f96ea/LICENSE).
+Ocura OSS is research software under the [Apache License 2.0](https://github.com/Protention/ocura-oss/blob/68dc7beb9d4f543e421172f50288306cbeb4b73b/LICENSE).
 Versions 0.5.0 and earlier were released under MPL-2.0. The 0.x interface and record
 format may change before 1.0, and there is no production support commitment.
 
-Bug reports and focused pull requests are welcome. See [Contributing](https://github.com/Protention/ocura-oss/blob/5828a5571c17e01f0edb0576471d0a95f69f96ea/CONTRIBUTING.md)
-and the [security policy](https://github.com/Protention/ocura-oss/blob/5828a5571c17e01f0edb0576471d0a95f69f96ea/SECURITY.md).
+Bug reports and focused pull requests are welcome. See [Contributing](https://github.com/Protention/ocura-oss/blob/68dc7beb9d4f543e421172f50288306cbeb4b73b/CONTRIBUTING.md)
+and the [security policy](https://github.com/Protention/ocura-oss/blob/68dc7beb9d4f543e421172f50288306cbeb4b73b/SECURITY.md).
 
 ## Command help
 

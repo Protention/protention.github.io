@@ -518,7 +518,7 @@ print(report.comparison.state.value)
 filtering, and unfinished attempt counts; `list_run_records()` lists all retained
 run records in start order. Neither metadata list verifies log contents.
 
-The [history example](https://github.com/Protention/ocura-oss/blob/5828a5571c17e01f0edb0576471d0a95f69f96ea/examples/history/README.md) demonstrates a fresh caller
+The [history example](https://github.com/Protention/ocura-oss/blob/68dc7beb9d4f543e421172f50288306cbeb4b73b/examples/history/README.md) demonstrates a fresh caller
 discovering every observed attempt and reading bounded, verified excerpts from an
 existing root. It leaves report composition and interpretation with the caller.
 

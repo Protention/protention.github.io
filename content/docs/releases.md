@@ -15,7 +15,7 @@ Version 0.7 added `runs` and `show` for history
 discovery, bounded verified log reads, opt-in [log compression](https://protention.dev/compression/), and
 opt-in `--json-errors` for structured failures. It also added
 `run --from ID --reason TEXT` to create and execute a variation in one call. The
-[history example](https://github.com/Protention/ocura-oss/blob/5828a5571c17e01f0edb0576471d0a95f69f96ea/examples/history/README.md) starts with only a project root, retains failed
+[history example](https://github.com/Protention/ocura-oss/blob/68dc7beb9d4f543e421172f50288306cbeb4b73b/examples/history/README.md) starts with only a project root, retains failed
 retries and empty variations, and returns verified excerpts with stable references.
 
 ## New in 0.6.0
