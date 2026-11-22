@@ -1,6 +1,6 @@
 # Scripts and AI agents
 
-Version 0.8.0.
+Version 0.9.0.
 
 Version 0.8 renamed stored IDs and JSON keys; the [naming guide](https://protention.dev/naming/)
 maps the names used before 0.8.
@@ -8,6 +8,11 @@ maps the names used before 0.8.
 Ocura OSS can be called from a shell, a Python program, or an AI agent's existing
 command tool. Use it when you want a durable record connecting a baseline to later
 variations, with reasons, outputs, and verification.
+
+An agent whose client speaks the Model Context Protocol can also read the ledger
+through [`ocura-oss mcp`](https://protention.dev/cli/#mcp), which offers `runs`, `show`, `logs`, `compare`,
+`verify`, and `attempts` as tools, and keep a run's [note and tags](https://protention.dev/cli/#note-and-tag)
+with `note` and `tag`. Recording still goes through the commands below.
 
 ## Command workflow
 
@@ -61,9 +66,9 @@ it stops the command and still returns a recorded `interrupted` result. If a `ru
 process is killed instead, its attempt remains unfinished. `attempts --json` lists it, `verify --json` reports it as a problem, and
 `recover --json` closes it as `abandoned` once the command itself has stopped.
 
-On the `examples/0.8` branch, the [CI-report example](https://github.com/Protention/ocura-oss/blob/examples/0.8/examples/ci_report/README.md) demonstrates a failed test
+On the `examples/0.9` branch, the [CI-report example](https://github.com/Protention/ocura-oss/blob/examples/0.9/examples/ci_report/README.md) demonstrates a failed test
 run, a reasoned fix through the combined operation, and later inspection without
-rerunning the work. The [autoregressive example](https://github.com/Protention/ocura-oss/blob/examples/0.8/examples/autoregressive/README.md) is an executable
+rerunning the work. The [autoregressive example](https://github.com/Protention/ocura-oss/blob/examples/0.9/examples/autoregressive/README.md) is an executable
 client of this interface, with PyTorch/JAX choices and an optional Ray Core executor.
 See [use cases](https://protention.dev/examples/) for the separate checkout and requirements.
 The [Python API](https://protention.dev/api/) provides the same operations with typed results.
@@ -163,7 +168,7 @@ finish or `recover` closes them. A series of reads is not a transaction or a fro
 For a stable copy with no writers or unfinished attempts, pass `--archive` to read
 without creating ledger locks.
 
-The executable [history example](https://github.com/Protention/ocura-oss/blob/5c057e7648acb327922dfffdabf7e59c50a1086b/examples/history/README.md) implements this
+The executable [history example](https://github.com/Protention/ocura-oss/blob/5828a5571c17e01f0edb0576471d0a95f69f96ea/examples/history/README.md) implements this
 workflow using public Python readers. It accepts only a root, lists all pathways
 and runs, preserves unfinished attempts, and returns exact byte references
 (`ledger_id`, `run_id`, stream, digest, offset, length). Those references survive
